@@ -69,6 +69,7 @@ namespace DotNetAutoUpdater.UpdateDialogs
 
             var evtPerDonwload = new ManualResetEvent(false);
             WebClient downloadClient = null;
+            int index = 0;
             foreach (var item in _updateOption.UpdateItems)
             {
                 try
@@ -87,6 +88,11 @@ namespace DotNetAutoUpdater.UpdateDialogs
                         {
                             progressBarCurrent.Value = (int)((e.BytesReceived * 100) / e.TotalBytesToReceive);
                         });
+                        progressBarTotal.UpdateUI(() =>
+                        {
+                            var progress = (int)(100 * ((index + (double)e.BytesReceived / e.TotalBytesToReceive) / _updateOption.UpdateItems.Count));
+                            progressBarTotal.Value = progress > progressBarTotal.Maximum ? progressBarTotal.Maximum : progress;
+                        });
                     };
                     downloadClient.DownloadFileCompleted += (sender, e) =>
                     {
@@ -100,20 +106,19 @@ namespace DotNetAutoUpdater.UpdateDialogs
 
                     evtPerDonwload.Reset();
 
-                    downloadClient.DownloadFileAsync(new Uri("http://101.201.142.93:9000/update/auto-update.zip"),
-                        System.IO.Path.Combine(tempFolder, "auto-update.zip"));
+                    downloadClient.DownloadFileAsync(new Uri("http://101.201.142.93:9000/update/auto-update.xml"),
+                        System.IO.Path.Combine(tempFolder, "auto-update.xml"));
 
                     evtPerDonwload.WaitOne();
 
                     downloadClient.Dispose();
                     downloadClient = null;
-
-                    break;
                 }
                 catch
                 {
                     return;
                 }
+                index++;
             }
 
             // handle files
