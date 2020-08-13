@@ -15,6 +15,8 @@ namespace DotNetAutoUpdater.UpdateDialogs
 
         private void ConfirmDiaglog_Load(object sender, System.EventArgs e)
         {
+            this.Text = ConstResources.FormTextConfirmTitle;
+
             lblTitle.Text = ConstResources.LabelTextConfirmTitle;
             lblSubTitle.Text = ConstResources.LabelTextConfirmSubTitle;
 
@@ -24,6 +26,17 @@ namespace DotNetAutoUpdater.UpdateDialogs
             lblFileName.Text = Assembly.GetEntryAssembly().GetName().Name;
             lblVersion.Text = $"{_updateOption.InstalledVersion} to {_updateOption.UpdateVersion}";
             txtChangeLog.Text = _updateOption.ChangeLog;
+
+            if (_updateOption.UpdateMode == UpdateMode.PromptAndDetail)
+            {
+                txtChangeLog.Visible = true;
+                this.Size = this.MaximumSize;
+            }
+            else if (_updateOption.UpdateMode == UpdateMode.Prompt)
+            {
+                txtChangeLog.Visible = false;
+                this.Size = this.MinimumSize;
+            }
         }
 
         private void btnUpdate_Click(object sender, System.EventArgs e)
