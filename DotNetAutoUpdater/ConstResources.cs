@@ -4,6 +4,8 @@ namespace DotNetAutoUpdater
 {
     public class ConstResources
     {
+        public static string TempFolder = "Temp";
+
         public static string DefaultLang = "zh-cn";
         public static string Lang = "zh-cn";
 
@@ -23,6 +25,30 @@ namespace DotNetAutoUpdater
 
         #region download diaglog
 
+        public static readonly string FormTextDownloadTitle = GetText(Lang, new Dictionary<string, string> {
+                {"zh-cn", "更新" }
+            });
+
+        public static readonly string LabelTextDownloadTitle = GetText(Lang, new Dictionary<string, string> {
+                {"zh-cn", "正在更新" }
+            });
+
+        public static readonly string LabelTextDownloadSubTitle = GetText(Lang, new Dictionary<string, string> {
+                {"zh-cn", "本次更新可能持续数分钟，在这期间您可以做其他的事。" }
+            });
+
+        public static readonly string LabelTextDownloadCurProgress = GetText(Lang, new Dictionary<string, string> {
+                {"zh-cn", "下载中..." }
+            });
+
+        public static readonly string LabelTextDownloadCurProgressFinished = GetText(Lang, new Dictionary<string, string> {
+                {"zh-cn", "下载完成" }
+            });
+
+        public static readonly string LabelTextDownloadTotalProgress = GetText(Lang, new Dictionary<string, string> {
+                {"zh-cn", "总进度" }
+            });
+
         public static readonly string ButtonTextShowDetail = GetText(Lang, new Dictionary<string, string> {
                 {"zh-cn", "显示详情" }
             });
@@ -31,9 +57,29 @@ namespace DotNetAutoUpdater
                 {"zh-cn", "隐藏详情" }
             });
 
+        public static readonly string ButtonTextDownloadCancel = GetText(Lang, new Dictionary<string, string> {
+                {"zh-cn", "取消" }
+            });
+
+        public static readonly string ViewColTextDownloadFileName = GetText(Lang, new Dictionary<string, string> {
+                {"zh-cn", "文件名" }
+            });
+
+        public static readonly string ViewColTextDownloadUpdateVer = GetText(Lang, new Dictionary<string, string> {
+                {"zh-cn", "更新版本" }
+            });
+
+        public static readonly string ViewColTextDownloadChangeLog = GetText(Lang, new Dictionary<string, string> {
+                {"zh-cn", "更新内容" }
+            });
+
         #endregion download diaglog
 
         #region confirm diaglog
+
+        public static readonly string FormTextConfirmTitle = GetText(Lang, new Dictionary<string, string> {
+                {"zh-cn", "提示" }
+            });
 
         public static readonly string LabelTextConfirmTitle = GetText(Lang, new Dictionary<string, string> {
                 {"zh-cn", "发现新版本" }
