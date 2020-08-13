@@ -70,6 +70,7 @@
     <Compile Include="UpdateDialogs\DownloadDiaglog.Designer.cs">
       <DependentUpon>DownloadDiaglog.cs</DependentUpon>
     </Compile>
+    <Compile Include="UpdateExtensions.cs" />
     <Compile Include="UpdateItem.cs" />
     <Compile Include="UpdateMode.cs" />
     <Compile Include="UpdateOption.cs" />
