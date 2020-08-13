@@ -1,14 +1,18 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 
 namespace DotNetAutoUpdater
 {
     public class UpdateOption
     {
+        [JsonIgnore]
         public bool IsUpdateAvailable { get; set; }
 
+        [JsonIgnore]
         public Version InstalledVersion { get; set; }
 
+        [JsonIgnore]
         public Version UpdateVersion { get; private set; }
 
         private string _version = "";
@@ -34,7 +38,7 @@ namespace DotNetAutoUpdater
 
         public UpdateMode UpdateMode { get; set; }
 
-        public string UpdateDetail { get; set; }
+        public string ChangeLog { get; set; }
 
         public List<UpdateItem> UpdateItems { get; set; }
     }

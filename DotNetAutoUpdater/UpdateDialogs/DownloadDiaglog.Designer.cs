@@ -33,11 +33,9 @@
             this.panel1 = new System.Windows.Forms.Panel();
             this.label2 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
-            this.splitter1 = new System.Windows.Forms.Splitter();
             this.panel2 = new System.Windows.Forms.Panel();
             this.btnShowList = new System.Windows.Forms.Button();
             this.btnCancel = new System.Windows.Forms.Button();
-            this.splitter2 = new System.Windows.Forms.Splitter();
             this.panel3 = new System.Windows.Forms.Panel();
             this.panel5 = new System.Windows.Forms.Panel();
             this.listView1 = new System.Windows.Forms.ListView();
@@ -50,7 +48,7 @@
             this.progressBarCurrent = new System.Windows.Forms.ProgressBar();
             this.lblTotalDownload = new System.Windows.Forms.Label();
             this.lblCurDownload = new System.Windows.Forms.Label();
-            this.lblRemoteServer = new System.Windows.Forms.Label();
+            this.lblVersion = new System.Windows.Forms.Label();
             this.lblFileName = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.panel1.SuspendLayout();
@@ -99,15 +97,6 @@
             this.label3.TabIndex = 3;
             this.label3.Text = "正在更新";
             // 
-            // splitter1
-            // 
-            this.splitter1.Dock = System.Windows.Forms.DockStyle.Top;
-            this.splitter1.Location = new System.Drawing.Point(0, 70);
-            this.splitter1.Name = "splitter1";
-            this.splitter1.Size = new System.Drawing.Size(543, 2);
-            this.splitter1.TabIndex = 2;
-            this.splitter1.TabStop = false;
-            // 
             // panel2
             // 
             this.panel2.Controls.Add(this.btnShowList);
@@ -126,6 +115,7 @@
             this.btnShowList.TabIndex = 1;
             this.btnShowList.Text = "显示详情";
             this.btnShowList.UseVisualStyleBackColor = true;
+            this.btnShowList.Click += new System.EventHandler(this.btnShowList_Click);
             // 
             // btnCancel
             // 
@@ -136,23 +126,14 @@
             this.btnCancel.Text = "取消";
             this.btnCancel.UseVisualStyleBackColor = true;
             // 
-            // splitter2
-            // 
-            this.splitter2.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.splitter2.Location = new System.Drawing.Point(0, 211);
-            this.splitter2.Name = "splitter2";
-            this.splitter2.Size = new System.Drawing.Size(543, 2);
-            this.splitter2.TabIndex = 4;
-            this.splitter2.TabStop = false;
-            // 
             // panel3
             // 
             this.panel3.Controls.Add(this.panel5);
             this.panel3.Controls.Add(this.panel4);
             this.panel3.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panel3.Location = new System.Drawing.Point(0, 72);
+            this.panel3.Location = new System.Drawing.Point(0, 70);
             this.panel3.Name = "panel3";
-            this.panel3.Size = new System.Drawing.Size(543, 139);
+            this.panel3.Size = new System.Drawing.Size(543, 143);
             this.panel3.TabIndex = 5;
             // 
             // panel5
@@ -161,7 +142,7 @@
             this.panel5.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panel5.Location = new System.Drawing.Point(0, 0);
             this.panel5.Name = "panel5";
-            this.panel5.Size = new System.Drawing.Size(543, 33);
+            this.panel5.Size = new System.Drawing.Size(543, 37);
             this.panel5.TabIndex = 13;
             // 
             // listView1
@@ -175,7 +156,7 @@
             this.listView1.HideSelection = false;
             this.listView1.Location = new System.Drawing.Point(0, 0);
             this.listView1.Name = "listView1";
-            this.listView1.Size = new System.Drawing.Size(543, 33);
+            this.listView1.Size = new System.Drawing.Size(543, 37);
             this.listView1.TabIndex = 0;
             this.listView1.UseCompatibleStateImageBehavior = false;
             this.listView1.View = System.Windows.Forms.View.Details;
@@ -207,10 +188,10 @@
             this.panel4.Controls.Add(this.progressBarCurrent);
             this.panel4.Controls.Add(this.lblTotalDownload);
             this.panel4.Controls.Add(this.lblCurDownload);
-            this.panel4.Controls.Add(this.lblRemoteServer);
+            this.panel4.Controls.Add(this.lblVersion);
             this.panel4.Controls.Add(this.lblFileName);
             this.panel4.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.panel4.Location = new System.Drawing.Point(0, 33);
+            this.panel4.Location = new System.Drawing.Point(0, 37);
             this.panel4.Name = "panel4";
             this.panel4.Size = new System.Drawing.Size(543, 106);
             this.panel4.TabIndex = 12;
@@ -249,14 +230,14 @@
             this.lblCurDownload.TabIndex = 15;
             this.lblCurDownload.Text = "Downloading:";
             // 
-            // lblRemoteServer
+            // lblVersion
             // 
-            this.lblRemoteServer.AutoSize = true;
-            this.lblRemoteServer.Location = new System.Drawing.Point(206, 9);
-            this.lblRemoteServer.Name = "lblRemoteServer";
-            this.lblRemoteServer.Size = new System.Drawing.Size(137, 12);
-            this.lblRemoteServer.TabIndex = 12;
-            this.lblRemoteServer.Text = "From:    Remote Server";
+            this.lblVersion.AutoSize = true;
+            this.lblVersion.Location = new System.Drawing.Point(206, 9);
+            this.lblVersion.Name = "lblVersion";
+            this.lblVersion.Size = new System.Drawing.Size(113, 12);
+            this.lblVersion.TabIndex = 12;
+            this.lblVersion.Text = "1.0.0.0 to 2.0.0.0";
             // 
             // lblFileName
             // 
@@ -274,9 +255,7 @@
             this.ClientSize = new System.Drawing.Size(543, 256);
             this.ControlBox = false;
             this.Controls.Add(this.panel3);
-            this.Controls.Add(this.splitter2);
             this.Controls.Add(this.panel2);
-            this.Controls.Add(this.splitter1);
             this.Controls.Add(this.panel1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.MaximizeBox = false;
@@ -304,11 +283,9 @@
         private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label label3;
-        private System.Windows.Forms.Splitter splitter1;
         private System.Windows.Forms.Panel panel2;
         private System.Windows.Forms.Button btnShowList;
         private System.Windows.Forms.Button btnCancel;
-        private System.Windows.Forms.Splitter splitter2;
         private System.Windows.Forms.Panel panel3;
         private System.Windows.Forms.Panel panel5;
         private System.Windows.Forms.ListView listView1;
@@ -317,7 +294,7 @@
         private System.Windows.Forms.ProgressBar progressBarCurrent;
         private System.Windows.Forms.Label lblTotalDownload;
         private System.Windows.Forms.Label lblCurDownload;
-        private System.Windows.Forms.Label lblRemoteServer;
+        private System.Windows.Forms.Label lblVersion;
         private System.Windows.Forms.Label lblFileName;
         private System.Windows.Forms.ColumnHeader fileName;
         private System.Windows.Forms.ColumnHeader curVer;

@@ -1,11 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace DotNetAutoUpdater.UpdateDialogs
@@ -15,6 +8,20 @@ namespace DotNetAutoUpdater.UpdateDialogs
         public DownloadDiaglog()
         {
             InitializeComponent();
+        }
+
+        private void btnShowList_Click(object sender, EventArgs e)
+        {
+            if (this.Size == this.MinimumSize)
+            {
+                this.Size = this.MaximumSize;
+                btnShowList.Text = ConstResources.ButtonTextHideDetail;
+            }
+            else
+            {
+                this.Size = this.MinimumSize;
+                btnShowList.Text = ConstResources.ButtonTextShowDetail;
+            }
         }
     }
 }

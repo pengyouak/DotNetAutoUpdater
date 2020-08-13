@@ -1,4 +1,5 @@
-﻿using System;
+﻿using DotNetAutoUpdater.UpdateDialogs;
+using System;
 using System.Net;
 using System.Net.Cache;
 using System.Reflection;
@@ -7,13 +8,38 @@ namespace DotNetAutoUpdater
 {
     public class AutoUpdate : IAutoUpdater
     {
+        #region private fields
+
         private UpdateOption _updateOption;
+
+        #endregion private fields
+
+        #region public events
 
         public delegate void CheckForUpdateEventHandler(AutoUpdateArgs args);
 
         public event CheckForUpdateEventHandler CheckForUpdateEvent;
 
+        #endregion public events
+
+        #region public properties
+
         public UpdateRequestOption UpdateRequestOption { get; set; }
+
+        #endregion public properties
+
+        public void Update(UpdateOption updateOption)
+        {
+            if (updateOption == null) return;
+
+            _updateOption = updateOption;
+
+            _updateOption.InstalledVersion = Assembly.GetEntryAssembly().GetName().Version;
+
+            _updateOption.IsUpdateAvailable = _updateOption.UpdateVersion > _updateOption.InstalledVersion;
+
+            StartUpdate();
+        }
 
         public void Update(string url)
         {
@@ -21,15 +47,12 @@ namespace DotNetAutoUpdater
 
             var uri = new Uri(url);
 
-            BindOption(uri);
+            if (!BindOption(uri)) return;
 
-            if (_updateOption == null) return;
-
-            if (_updateOption.UpdateMode == UpdateMode.Force)
-                StartUpdate();
+            StartUpdate();
         }
 
-        private void BindOption(Uri uri)
+        private bool BindOption(Uri uri)
         {
             WebClient webClient = new WebClient
             {
@@ -65,7 +88,7 @@ namespace DotNetAutoUpdater
                     Message = ConstResources.UpdateJsonFileEmpty,
                     UpdateRequestOption = this.UpdateRequestOption
                 });
-                return;
+                return false;
             }
 
             try
@@ -84,12 +107,20 @@ namespace DotNetAutoUpdater
                     Message = ConstResources.UpdateJsonFileEmpty,
                     UpdateRequestOption = this.UpdateRequestOption
                 });
-                return;
+                return false;
             }
+            return true;
         }
 
         private void StartUpdate()
         {
+            if (!_updateOption.IsUpdateAvailable) return;
+
+            if (_updateOption.UpdateMode != UpdateMode.Force)
+            {
+                var confirm = new ConfirmDiaglog(_updateOption);
+                confirm.ShowDialog();
+            }
         }
     }
 }

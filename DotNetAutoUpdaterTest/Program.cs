@@ -10,7 +10,7 @@ namespace DotNetAutoUpdaterTest
             var op = new UpdateOption
             {
                 UpdateMode = UpdateMode.PromptAndDetail,
-                UpdateDetail = "xxxxxxxx",
+                ChangeLog = "xxxxxxxx",
                 Version = "1.1.1.1",
                 UpdateItems = new System.Collections.Generic.List<UpdateItem>() {
                         new UpdateItem{
@@ -34,9 +34,11 @@ namespace DotNetAutoUpdaterTest
                     }
             };
 
-            var json = Newtonsoft.Json.JsonConvert.SerializeObject(op);
-            System.Console.WriteLine(json);
-            var opt = Newtonsoft.Json.JsonConvert.DeserializeObject<UpdateOption>(json);
+            new AutoUpdate().Update(op);
+
+            //var json = Newtonsoft.Json.JsonConvert.SerializeObject(op);
+            //System.Console.WriteLine(json);
+            //var opt = Newtonsoft.Json.JsonConvert.DeserializeObject<UpdateOption>(json);
             Console.ReadKey();
         }
     }
