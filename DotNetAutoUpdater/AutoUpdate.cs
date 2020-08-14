@@ -143,7 +143,7 @@ namespace DotNetAutoUpdater
 
         private void ExecUpdateApp()
         {
-            var updaterExe = Path.Combine(ConstResources.TempFolder, ConstResources.UpdateTool);
+            var updaterExe = Path.Combine(ConstResources.TempFolder, ConstResources.UpdateToolName);
             File.WriteAllBytes(updaterExe, Resources.DotNetAutoUpdater);
 
             var arguments = new StringBuilder();
