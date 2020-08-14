@@ -1,10 +1,14 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 
 namespace DotNetAutoUpdater
 {
     public class ConstResources
     {
-        public static string TempFolder = "Temp";
+        public static string TempFolder = System.IO.Path.Combine(System.IO.Path.GetTempPath(), "DotNetAutoUpdater");
+        public static string UpdateFolder = System.IO.Path.Combine(TempFolder, "_Update");
+        public static string BackupFolder = System.IO.Path.Combine(TempFolder, "_Backup");
+        public static string AppFolder = AppDomain.CurrentDomain.BaseDirectory;
 
         public static string DefaultLang = "zh-cn";
         public static string Lang = "zh-cn";
@@ -15,6 +19,10 @@ namespace DotNetAutoUpdater
                 {"zh-cn","更新配置文件内容为空" }
             });
 
+        public static readonly string UpdateJsonFileNotFound = GetText(Lang, new Dictionary<string, string> {
+                {"zh-cn","更新配置未找到" }
+            });
+
         public static readonly string UpdateJsonFileFormatInvalid = GetText(Lang, new Dictionary<string, string> {
                 {"zh-cn","更新配置文件反序列化失败" }
             });
@@ -23,29 +31,53 @@ namespace DotNetAutoUpdater
 
         #region control
 
-        #region download diaglog
+        #region update diaglog
 
-        public static readonly string FormTextDownloadTitle = GetText(Lang, new Dictionary<string, string> {
+        public static readonly string FormTextUpdateTitle = GetText(Lang, new Dictionary<string, string> {
                 {"zh-cn", "更新" }
             });
 
-        public static readonly string LabelTextDownloadTitle = GetText(Lang, new Dictionary<string, string> {
+        public static readonly string LabelTextUpdateTitle = GetText(Lang, new Dictionary<string, string> {
                 {"zh-cn", "正在更新" }
+            });
+
+        public static readonly string LabelTextUpdateSubTitle = GetText(Lang, new Dictionary<string, string> {
+                {"zh-cn", "本次更新可能持续数分钟，在这期间您可以做其他的事。" }
+            });
+
+        public static readonly string LabelTextUpdateTotalProcess = GetText(Lang, new Dictionary<string, string> {
+                {"zh-cn", "更新进度" }
+            });
+
+        public static readonly string ButtonTextUpdateCancel = GetText(Lang, new Dictionary<string, string> {
+                {"zh-cn", "取消" }
+            });
+
+        #endregion update diaglog
+
+        #region download diaglog
+
+        public static readonly string FormTextDownloadTitle = GetText(Lang, new Dictionary<string, string> {
+                {"zh-cn", "下载" }
+            });
+
+        public static readonly string LabelTextDownloadTitle = GetText(Lang, new Dictionary<string, string> {
+                {"zh-cn", "正在下载更新" }
             });
 
         public static readonly string LabelTextDownloadSubTitle = GetText(Lang, new Dictionary<string, string> {
                 {"zh-cn", "本次更新可能持续数分钟，在这期间您可以做其他的事。" }
             });
 
-        public static readonly string LabelTextDownloadCurProgress = GetText(Lang, new Dictionary<string, string> {
+        public static readonly string LabelTextDownloadCurProcess = GetText(Lang, new Dictionary<string, string> {
                 {"zh-cn", "下载中..." }
             });
 
-        public static readonly string LabelTextDownloadCurProgressFinished = GetText(Lang, new Dictionary<string, string> {
+        public static readonly string LabelTextDownloadCurProcessFinished = GetText(Lang, new Dictionary<string, string> {
                 {"zh-cn", "下载完成" }
             });
 
-        public static readonly string LabelTextDownloadTotalProgress = GetText(Lang, new Dictionary<string, string> {
+        public static readonly string LabelTextDownloadTotalProcess = GetText(Lang, new Dictionary<string, string> {
                 {"zh-cn", "总进度" }
             });
 
