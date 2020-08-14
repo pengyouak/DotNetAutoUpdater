@@ -43,8 +43,7 @@ namespace DotNetAutoUpdater.UpdateDialogs
             lblProcess.UpdateUI(() => lblProcess.Text = $"{_updateToolOption.AppName} {_updateToolOption.PID}");
             try
             {
-                var app = Process.GetProcessById(_updateToolOption.PID);
-                if (app != null) app.Kill();
+                Process.GetProcessById(_updateToolOption.PID)?.Kill();
 
                 var fileInfo = new FileInfo(_updateToolOption.AppFullPath);
                 BackupUpdate(fileInfo.DirectoryName);
