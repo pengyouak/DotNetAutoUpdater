@@ -94,7 +94,7 @@
             this.panel2.Controls.Add(this.btnUpdate);
             this.panel2.Controls.Add(this.btnCancel);
             this.panel2.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.panel2.Location = new System.Drawing.Point(0, 136);
+            this.panel2.Location = new System.Drawing.Point(0, 99);
             this.panel2.Name = "panel2";
             this.panel2.Size = new System.Drawing.Size(543, 43);
             this.panel2.TabIndex = 3;
@@ -126,7 +126,7 @@
             this.panel3.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panel3.Location = new System.Drawing.Point(0, 70);
             this.panel3.Name = "panel3";
-            this.panel3.Size = new System.Drawing.Size(543, 66);
+            this.panel3.Size = new System.Drawing.Size(543, 29);
             this.panel3.TabIndex = 5;
             // 
             // panel5
@@ -137,7 +137,7 @@
             this.panel5.Location = new System.Drawing.Point(0, 34);
             this.panel5.Name = "panel5";
             this.panel5.Padding = new System.Windows.Forms.Padding(5);
-            this.panel5.Size = new System.Drawing.Size(543, 32);
+            this.panel5.Size = new System.Drawing.Size(543, 0);
             this.panel5.TabIndex = 13;
             // 
             // txtChangeLog
@@ -149,7 +149,7 @@
             this.txtChangeLog.Name = "txtChangeLog";
             this.txtChangeLog.ReadOnly = true;
             this.txtChangeLog.ScrollBars = System.Windows.Forms.RichTextBoxScrollBars.Vertical;
-            this.txtChangeLog.Size = new System.Drawing.Size(533, 22);
+            this.txtChangeLog.Size = new System.Drawing.Size(533, 0);
             this.txtChangeLog.TabIndex = 0;
             this.txtChangeLog.Text = "";
             // 
@@ -186,7 +186,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(543, 179);
+            this.ClientSize = new System.Drawing.Size(543, 142);
             this.ControlBox = false;
             this.Controls.Add(this.panel3);
             this.Controls.Add(this.panel2);
