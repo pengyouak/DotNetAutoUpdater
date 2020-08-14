@@ -89,9 +89,9 @@
             this.lblTitle.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.lblTitle.Location = new System.Drawing.Point(77, 12);
             this.lblTitle.Name = "lblTitle";
-            this.lblTitle.Size = new System.Drawing.Size(59, 13);
+            this.lblTitle.Size = new System.Drawing.Size(85, 13);
             this.lblTitle.TabIndex = 3;
-            this.lblTitle.Text = "正在更新";
+            this.lblTitle.Text = "正在下载更新";
             // 
             // panel2
             // 
@@ -121,6 +121,7 @@
             this.btnCancel.TabIndex = 0;
             this.btnCancel.Text = "取消";
             this.btnCancel.UseVisualStyleBackColor = true;
+            this.btnCancel.Click += new System.EventHandler(this.btnCancel_Click);
             // 
             // panel3
             // 

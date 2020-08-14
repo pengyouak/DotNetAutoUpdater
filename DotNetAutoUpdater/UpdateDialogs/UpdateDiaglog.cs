@@ -8,11 +8,11 @@ using System.Windows.Forms;
 
 namespace DotNetAutoUpdater.UpdateDialogs
 {
-    public partial class DownloadDiaglog : Form
+    public partial class UpdateDiaglog : Form
     {
         private UpdateOption _updateOption;
 
-        public DownloadDiaglog(UpdateOption updateOption)
+        public UpdateDiaglog(UpdateOption updateOption)
         {
             InitializeComponent();
             _updateOption = updateOption;
