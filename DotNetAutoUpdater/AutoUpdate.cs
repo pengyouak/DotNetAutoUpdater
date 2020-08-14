@@ -1,8 +1,12 @@
-﻿using DotNetAutoUpdater.UpdateDialogs;
+﻿using DotNetAutoUpdater.Properties;
+using DotNetAutoUpdater.UpdateDialogs;
 using System;
+using System.Diagnostics;
+using System.IO;
 using System.Net;
 using System.Net.Cache;
 using System.Reflection;
+using System.Text;
 
 namespace DotNetAutoUpdater
 {
@@ -78,28 +82,37 @@ namespace DotNetAutoUpdater
                 webClient.Headers[HttpRequestHeader.UserAgent] = UpdateRequestOption.HttpUserAgent;
             }
 
-            var jsonFile = webClient.DownloadString(uri);
-
-            if (string.IsNullOrEmpty(jsonFile))
-            {
-                CheckForUpdateEvent?.Invoke(new AutoUpdateArgs
-                {
-                    Uri = uri,
-                    Message = ConstResources.UpdateJsonFileEmpty,
-                    UpdateRequestOption = this.UpdateRequestOption
-                });
-                return false;
-            }
-
             try
             {
-                _updateOption = Newtonsoft.Json.JsonConvert.DeserializeObject<UpdateOption>(jsonFile);
+                var xmlFile = webClient.DownloadString(uri);
+
+                if (string.IsNullOrEmpty(xmlFile))
+                {
+                    CheckForUpdateEvent?.Invoke(new AutoUpdateArgs
+                    {
+                        Uri = uri,
+                        Message = ConstResources.UpdateJsonFileEmpty,
+                        UpdateRequestOption = this.UpdateRequestOption
+                    });
+                    return false;
+                }
+                _updateOption = UpdateOption.LoadUpdateOption(xmlFile);
 
                 _updateOption.InstalledVersion = Assembly.GetEntryAssembly().GetName().Version;
 
                 _updateOption.IsUpdateAvailable = _updateOption.UpdateVersion > _updateOption.InstalledVersion;
             }
-            catch
+            catch (WebException)
+            {
+                CheckForUpdateEvent?.Invoke(new AutoUpdateArgs
+                {
+                    Uri = uri,
+                    Message = ConstResources.UpdateJsonFileNotFound,
+                    UpdateRequestOption = this.UpdateRequestOption
+                });
+                return false;
+            }
+            catch (Exception)
             {
                 CheckForUpdateEvent?.Invoke(new AutoUpdateArgs
                 {
@@ -119,8 +132,29 @@ namespace DotNetAutoUpdater
             if (_updateOption.UpdateMode != UpdateMode.Force)
             {
                 var confirm = new ConfirmDiaglog(_updateOption);
-                confirm.ShowDialog();
+                if (confirm.ShowDialog() == System.Windows.Forms.DialogResult.Cancel) return;
             }
+
+            var download = new DownloadDiaglog(_updateOption);
+            if (download.ShowDialog() == System.Windows.Forms.DialogResult.Cancel) return;
+
+            ExecUpdateApp();
+        }
+
+        private void ExecUpdateApp()
+        {
+            var updaterExe = Path.Combine(ConstResources.TempFolder, "DotNetAutoUpdater.exe");
+            File.WriteAllBytes(updaterExe, Resources.DotNetAutoUpdater_App);
+
+            var arguments = new StringBuilder();
+            arguments.Append($"/pid {Process.GetCurrentProcess().Id} ");
+            arguments.Append($"/app {System.Windows.Forms.Application.ExecutablePath} ");
+
+            var processInfo = new ProcessStartInfo(updaterExe, arguments.ToString())
+            {
+                UseShellExecute = true
+            };
+            Process.Start(processInfo);
         }
     }
 }
