@@ -1,16 +1,17 @@
 ﻿using System;
+using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace DotNetAutoUpdater.UpdateDialogs
 {
     public partial class UpdateDiaglog : Form
     {
-        private UpdateOption _updateOption;
+        private UpdateToolOption _updateToolOption;
 
-        public UpdateDiaglog(UpdateOption updateOption)
+        internal UpdateDiaglog(UpdateToolOption updateToolOption)
         {
             InitializeComponent();
-            _updateOption = updateOption;
+            _updateToolOption = updateToolOption;
         }
 
         private void DownloadDiaglog_Load(object sender, EventArgs e)
@@ -21,13 +22,34 @@ namespace DotNetAutoUpdater.UpdateDialogs
 
             lblTitle.Text = ConstResources.LabelTextUpdateTitle;
             lblSubTitle.Text = ConstResources.LabelTextUpdateSubTitle;
-            lblTotalDownload.Text = ConstResources.LabelTextUpdateTotalProgress;
+            lblProcess.Text = ConstResources.LabelTextUpdateTotalProcess;
 
             this.Size = this.MinimumSize;
+
+            new TaskFactory().StartNew((new Action(() => BeginUpdate())));
         }
 
         private void btnCancel_Click(object sender, EventArgs e)
         {
+            DialogResult = DialogResult.Cancel;
+            Close();
+        }
+
+        private void BeginUpdate()
+        {
+            // 结束进程
+            lblProcess.Text = $"{_updateToolOption.AppName} {_updateToolOption.PID}";
+
+            // 复制文件
+
+            // 启动进程
+
+            //Finished();
+        }
+
+        private void Finished()
+        {
+            DialogResult = DialogResult.OK;
             Close();
         }
     }

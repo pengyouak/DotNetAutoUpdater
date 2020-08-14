@@ -35,7 +35,7 @@
             this.lblTitle = new System.Windows.Forms.Label();
             this.panel4 = new System.Windows.Forms.Panel();
             this.progressBarTotal = new System.Windows.Forms.ProgressBar();
-            this.lblTotalDownload = new System.Windows.Forms.Label();
+            this.lblProcess = new System.Windows.Forms.Label();
             this.panel2 = new System.Windows.Forms.Panel();
             this.btnCancel = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
@@ -87,7 +87,7 @@
             // 
             this.panel4.BackColor = System.Drawing.Color.White;
             this.panel4.Controls.Add(this.progressBarTotal);
-            this.panel4.Controls.Add(this.lblTotalDownload);
+            this.panel4.Controls.Add(this.lblProcess);
             this.panel4.Dock = System.Windows.Forms.DockStyle.Bottom;
             this.panel4.Location = new System.Drawing.Point(0, 9);
             this.panel4.Name = "panel4";
@@ -102,14 +102,14 @@
             this.progressBarTotal.Step = 1;
             this.progressBarTotal.TabIndex = 16;
             // 
-            // lblTotalDownload
+            // lblProcess
             // 
-            this.lblTotalDownload.AutoSize = true;
-            this.lblTotalDownload.Location = new System.Drawing.Point(17, 69);
-            this.lblTotalDownload.Name = "lblTotalDownload";
-            this.lblTotalDownload.Size = new System.Drawing.Size(95, 12);
-            this.lblTotalDownload.TabIndex = 14;
-            this.lblTotalDownload.Text = "Total Progress:";
+            this.lblProcess.AutoSize = true;
+            this.lblProcess.Location = new System.Drawing.Point(17, 69);
+            this.lblProcess.Name = "lblProcess";
+            this.lblProcess.Size = new System.Drawing.Size(95, 12);
+            this.lblProcess.TabIndex = 14;
+            this.lblProcess.Text = "Total Progress:";
             // 
             // panel2
             // 
@@ -166,7 +166,7 @@
         private System.Windows.Forms.Label lblTitle;
         private System.Windows.Forms.Panel panel4;
         private System.Windows.Forms.ProgressBar progressBarTotal;
-        private System.Windows.Forms.Label lblTotalDownload;
+        private System.Windows.Forms.Label lblProcess;
         private System.Windows.Forms.Panel panel2;
         private System.Windows.Forms.Button btnCancel;
     }
