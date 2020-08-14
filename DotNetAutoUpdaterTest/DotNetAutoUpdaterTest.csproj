@@ -52,7 +52,7 @@
   <ItemGroup>
     <None Include="App.config" />
     <None Include="packages.config" />
-    <None Include="update.json" />
+    <Content Include="update.xml" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\DotNetAutoUpdater\DotNetAutoUpdater.csproj">

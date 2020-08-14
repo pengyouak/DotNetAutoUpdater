@@ -10,6 +10,9 @@ namespace DotNetAutoUpdater
         public static string BackupFolder = System.IO.Path.Combine(TempFolder, "_Backup");
         public static string AppFolder = AppDomain.CurrentDomain.BaseDirectory;
 
+        public static string TempUpdateOption = "UpdateOption.tmp";
+        public static string UpdateTool = "DotNetAutoUpdater.exe";
+
         public static string DefaultLang = "zh-cn";
         public static string Lang = "zh-cn";
 

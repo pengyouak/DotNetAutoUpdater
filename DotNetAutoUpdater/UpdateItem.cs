@@ -2,6 +2,7 @@
 
 namespace DotNetAutoUpdater
 {
+    [Serializable]
     public class UpdateItem
     {
         public DateTime UpdateDate { get; set; }

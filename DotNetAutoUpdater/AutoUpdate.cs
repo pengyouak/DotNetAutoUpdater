@@ -143,12 +143,12 @@ namespace DotNetAutoUpdater
 
         private void ExecUpdateApp()
         {
-            var updaterExe = Path.Combine(ConstResources.TempFolder, "DotNetAutoUpdater.exe");
-            File.WriteAllBytes(updaterExe, Resources.DotNetAutoUpdater_App);
+            var updaterExe = Path.Combine(ConstResources.TempFolder, ConstResources.UpdateTool);
+            File.WriteAllBytes(updaterExe, Resources.DotNetAutoUpdater);
 
             var arguments = new StringBuilder();
             arguments.Append($"/pid {Process.GetCurrentProcess().Id} ");
-            arguments.Append($"/app {System.Windows.Forms.Application.ExecutablePath} ");
+            arguments.Append($"/app \"{System.Windows.Forms.Application.ExecutablePath}\" ");
 
             var processInfo = new ProcessStartInfo(updaterExe, arguments.ToString())
             {

@@ -131,28 +131,9 @@ namespace DotNetAutoUpdater.UpdateDialogs
                 index++;
             }
 
-            // backup
-            Backup();
+            UpdateOption.SaveUpdateOption(_updateOption, Path.Combine(ConstResources.TempFolder, ConstResources.TempUpdateOption));
 
             DialogResult = DialogResult.OK;
-        }
-
-        private void Backup()
-        {
-            var backFolder = ConstResources.BackupFolder;
-            if (!Directory.Exists(backFolder)) Directory.CreateDirectory(backFolder);
-
-            try
-            {
-                foreach (var item in _updateOption.UpdateItems)
-                {
-                    var backupPath = Path.Combine(backFolder, item.Path);
-                    var filePath = Path.Combine(ConstResources.AppFolder, item.Path);
-
-                    if (File.Exists(filePath)) File.Copy(filePath, backupPath, true);
-                }
-            }
-            catch { }
         }
 
         private string FormatBytesReceived(long bytesReceived)

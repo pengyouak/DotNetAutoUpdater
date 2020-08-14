@@ -7,6 +7,11 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DotNetAutoUpdater", "DotNet
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DotNetAutoUpdaterTest", "DotNetAutoUpdaterTest\DotNetAutoUpdaterTest.csproj", "{9C380B85-A7B7-473B-BC3E-708D8117EFF3}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tools", "Tools", "{2B95357E-C3D5-458B-AF87-011AECD1F26A}"
+	ProjectSection(SolutionItems) = preProject
+		Tools\DotNetAutoUpdater = Tools\DotNetAutoUpdater
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
