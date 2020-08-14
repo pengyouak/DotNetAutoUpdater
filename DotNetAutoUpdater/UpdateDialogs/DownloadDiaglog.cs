@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Diagnostics;
 using System.IO;
 using System.Net;
 using System.Threading;
@@ -41,8 +40,8 @@ namespace DotNetAutoUpdater.UpdateDialogs
 
             lblTitle.Text = ConstResources.LabelTextDownloadTitle;
             lblSubTitle.Text = ConstResources.LabelTextDownloadSubTitle;
-            lblCurDownload.Text = ConstResources.LabelTextDownloadCurProgress;
-            lblTotalDownload.Text = ConstResources.LabelTextDownloadTotalProgress;
+            lblCurDownload.Text = ConstResources.LabelTextDownloadCurProcess;
+            lblTotalDownload.Text = ConstResources.LabelTextDownloadTotalProcess;
 
             lsvUpdateItems.Columns.AddRange(new ColumnHeader[] {
                 new ColumnHeader(){Name = "fileName", Width = 124, Text = ConstResources.ViewColTextDownloadFileName},
@@ -53,7 +52,7 @@ namespace DotNetAutoUpdater.UpdateDialogs
 
             LoadUpdateItem();
 
-            new TaskFactory().StartNew((new Action(() => BeginUpdate())));
+            new TaskFactory().StartNew((new Action(() => BeginDownload())));
         }
 
         private void LoadUpdateItem()
@@ -64,9 +63,9 @@ namespace DotNetAutoUpdater.UpdateDialogs
             }
         }
 
-        private void BeginUpdate()
+        private void BeginDownload()
         {
-            var tempFolder = ConstResources.TempFolder;
+            var tempFolder = ConstResources.UpdateFolder;
             // template folder
             if (Directory.Exists(tempFolder))
                 Directory.Delete(tempFolder, true);
@@ -104,7 +103,7 @@ namespace DotNetAutoUpdater.UpdateDialogs
                     {
                         lblCurDownload.UpdateUI(() =>
                         {
-                            lblCurDownload.Text = ConstResources.LabelTextDownloadCurProgressFinished;
+                            lblCurDownload.Text = ConstResources.LabelTextDownloadCurProcessFinished;
                         });
 
                         evtPerDonwload.Set();
@@ -134,10 +133,8 @@ namespace DotNetAutoUpdater.UpdateDialogs
 
             // backup
             Backup();
-            Console.WriteLine(Path.GetDirectoryName(Process.GetCurrentProcess().MainModule.FileName));
-            // update
 
-            // rollback
+            DialogResult = DialogResult.OK;
         }
 
         private void Backup()
@@ -158,10 +155,6 @@ namespace DotNetAutoUpdater.UpdateDialogs
             catch { }
         }
 
-        private void Update()
-        {
-        }
-
         private string FormatBytesReceived(long bytesReceived)
         {
             var unit = new[]{
@@ -179,6 +172,7 @@ namespace DotNetAutoUpdater.UpdateDialogs
 
         private void btnCancel_Click(object sender, EventArgs e)
         {
+            DialogResult = DialogResult.Cancel;
             Close();
         }
     }
