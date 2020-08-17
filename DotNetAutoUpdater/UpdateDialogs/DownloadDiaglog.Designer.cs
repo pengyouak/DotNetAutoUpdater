@@ -98,7 +98,7 @@
             this.panel2.Controls.Add(this.btnShowList);
             this.panel2.Controls.Add(this.btnCancel);
             this.panel2.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.panel2.Location = new System.Drawing.Point(0, 176);
+            this.panel2.Location = new System.Drawing.Point(0, 213);
             this.panel2.Name = "panel2";
             this.panel2.Size = new System.Drawing.Size(543, 43);
             this.panel2.TabIndex = 3;
@@ -130,7 +130,7 @@
             this.panel3.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panel3.Location = new System.Drawing.Point(0, 70);
             this.panel3.Name = "panel3";
-            this.panel3.Size = new System.Drawing.Size(543, 106);
+            this.panel3.Size = new System.Drawing.Size(543, 143);
             this.panel3.TabIndex = 5;
             // 
             // panel5
@@ -139,7 +139,7 @@
             this.panel5.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panel5.Location = new System.Drawing.Point(0, 0);
             this.panel5.Name = "panel5";
-            this.panel5.Size = new System.Drawing.Size(543, 0);
+            this.panel5.Size = new System.Drawing.Size(543, 37);
             this.panel5.TabIndex = 13;
             // 
             // lsvUpdateItems
@@ -150,7 +150,7 @@
             this.lsvUpdateItems.HideSelection = false;
             this.lsvUpdateItems.Location = new System.Drawing.Point(0, 0);
             this.lsvUpdateItems.Name = "lsvUpdateItems";
-            this.lsvUpdateItems.Size = new System.Drawing.Size(543, 0);
+            this.lsvUpdateItems.Size = new System.Drawing.Size(543, 37);
             this.lsvUpdateItems.TabIndex = 0;
             this.lsvUpdateItems.UseCompatibleStateImageBehavior = false;
             this.lsvUpdateItems.View = System.Windows.Forms.View.Details;
@@ -165,7 +165,7 @@
             this.panel4.Controls.Add(this.lblVersion);
             this.panel4.Controls.Add(this.lblFileName);
             this.panel4.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.panel4.Location = new System.Drawing.Point(0, 0);
+            this.panel4.Location = new System.Drawing.Point(0, 37);
             this.panel4.Name = "panel4";
             this.panel4.Size = new System.Drawing.Size(543, 106);
             this.panel4.TabIndex = 12;
@@ -226,7 +226,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(543, 219);
+            this.ClientSize = new System.Drawing.Size(543, 256);
             this.ControlBox = false;
             this.Controls.Add(this.panel3);
             this.Controls.Add(this.panel2);

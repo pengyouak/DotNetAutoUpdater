@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Text;
+using System.Xml;
 using System.Xml.Serialization;
 
 namespace DotNetAutoUpdater
@@ -54,20 +54,17 @@ namespace DotNetAutoUpdater
             // XmlSerializer xs = XmlSerializer.FromTypes(new Type[] { typeof(UpdateOption) }).FirstOrDefault();
 
             // XmlSerializer xs = new XmlSerializer(typeof(UpdateOption));
-
-            var sr = new MemoryStream(Encoding.UTF8.GetBytes(xml));
-            var config = xs.Deserialize(sr) as UpdateOption;
-            sr.Close();
-
+            var reader = new XmlTextReader(new StringReader(xml));
+            var config = xs.Deserialize(reader) as UpdateOption;
+            reader.Close();
             return config;
         }
 
         public static void SaveUpdateOption(UpdateOption updateOption, string file)
         {
             XmlSerializer xs = XmlSerializerHelper.Create(typeof(UpdateOption));
-            StreamWriter sw = new StreamWriter(file);
-            xs.Serialize(sw, updateOption);
-            sw.Close();
+            using (var writer = XmlWriter.Create(file))
+                xs.Serialize(writer, updateOption);
         }
     }
 }

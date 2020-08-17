@@ -72,6 +72,8 @@ namespace DotNetAutoUpdater.UpdateDialogs
                 Directory.Delete(tempFolder, true);
             Directory.CreateDirectory(tempFolder);
 
+            var startedAt = DateTime.Now;
+
             var evtPerDonwload = new ManualResetEvent(false);
             WebClient downloadClient = null;
             int index = 0;
@@ -87,16 +89,19 @@ namespace DotNetAutoUpdater.UpdateDialogs
                     {
                         lblCurDownload.UpdateUI(() =>
                         {
-                            lblCurDownload.Text = $"{item.Path}  {FormatBytesReceived(e.BytesReceived)}/{FormatBytesReceived(e.TotalBytesToReceive)}";
+                            var timespan = DateTime.Now - startedAt;
+                            var totalSeconds = (long)timespan.TotalSeconds;
+                            if (totalSeconds > 0)
+                                lblCurDownload.Text = $"{item.Path}  {FormatBytesReceived(e.BytesReceived)}/{FormatBytesReceived(e.TotalBytesToReceive)} {FormatBytesReceived(e.BytesReceived / totalSeconds)}/s";
                         });
                         progressBarCurrent.UpdateUI(() =>
                         {
-                            progressBarCurrent.Value = (int)((e.BytesReceived * 100) / e.TotalBytesToReceive);
+                            progressBarCurrent.Value = e.ProgressPercentage;
                         });
                         // refresh total progress
                         progressBarTotal.UpdateUI(() =>
                         {
-                            var progress = (int)(100 * ((index + (double)e.BytesReceived / e.TotalBytesToReceive) / _updateOption.UpdateItems.Count));
+                            var progress = 100 * ((index + e.ProgressPercentage / 100) / _updateOption.UpdateItems.Count);
                             progressBarTotal.Value = progress > progressBarTotal.Maximum ? progressBarTotal.Maximum : progress;
                         });
                     };
