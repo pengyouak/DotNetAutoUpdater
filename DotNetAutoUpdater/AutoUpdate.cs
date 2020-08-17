@@ -91,7 +91,7 @@ namespace DotNetAutoUpdater
                     CheckForUpdateEvent?.Invoke(new AutoUpdateArgs
                     {
                         Uri = uri,
-                        Message = ConstResources.UpdateJsonFileEmpty,
+                        Message = ConstResources.UpdateXmlFileEmpty,
                         UpdateRequestOption = this.UpdateRequestOption
                     });
                     return false;
@@ -107,7 +107,7 @@ namespace DotNetAutoUpdater
                 CheckForUpdateEvent?.Invoke(new AutoUpdateArgs
                 {
                     Uri = uri,
-                    Message = ConstResources.UpdateJsonFileNotFound,
+                    Message = ConstResources.UpdateXmlFileNotFound,
                     UpdateRequestOption = this.UpdateRequestOption
                 });
                 return false;
@@ -117,7 +117,7 @@ namespace DotNetAutoUpdater
                 CheckForUpdateEvent?.Invoke(new AutoUpdateArgs
                 {
                     Uri = uri,
-                    Message = ConstResources.UpdateJsonFileEmpty,
+                    Message = ConstResources.UpdateXmlFileEmpty,
                     UpdateRequestOption = this.UpdateRequestOption
                 });
                 return false;

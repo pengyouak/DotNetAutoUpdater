@@ -7,43 +7,43 @@ namespace DotNetAutoUpdaterTest
     {
         private static void Main(string[] args)
         {
-            var op = new UpdateOption
-            {
-                UpdateMode = UpdateMode.Force,
-                ChangeLog = "xxxxxxxx\nxxxxxxxx\nxxxxxxxx\nxxxxxxxx\nxxxxxxxx\nxxxxxxxx\nxxxxxxxx\nxxxxxxxx\nxxxxxxxx\nxxxxxxxx\nxxxxxxxx\nxxxxxxxx\nxxxxxxxx\nxxxxxxxx\nxxxxxxxx\nxxxxxxxx\n",
-                Version = "1.1.1.1",
-                ServerUrl = "http://101.201.142.93:18080/DotNetAutoUpdaterTest/",
-                UpdateItems = new System.Collections.Generic.List<UpdateItem>() {
-                        new UpdateItem{
-                             MinVersion="0.0.0.0",
-                             Version="1.0.0.0",
-                             ValideMode= ValideMode.Version,
-                             Path="DotNetAutoUpdater.dll",
-                             Required=false
-                        },
-                        new UpdateItem{
-                             MinVersion="0.0.0.0",
-                             Version="1.0.0.0",
-                             ValideMode= ValideMode.Version,
-                             Path="DotNetAutoUpdaterTest.exe",
-                             Required=false
-                        },
-                        new UpdateItem{
-                             MinVersion="0.0.0.0",
-                             Version="1.0.0.0",
-                             ValideMode= ValideMode.Version,
-                             Path="b/DotNetAutoUpdaterTest.exe",
-                             Required=false
-                        },
-                        new UpdateItem{
-                             MinVersion="0.0.0.0",
-                             Version="1.0.0.0",
-                             ValideMode= ValideMode.Version,
-                             Path="a/DotNetAutoUpdater.dll",
-                             Required=false
-                        }
-                    }
-            };
+            //var op = new UpdateOption
+            //{
+            //    UpdateMode = UpdateMode.Force,
+            //    ChangeLog = "xxxxxxxx\nxxxxxxxx\nxxxxxxxx\nxxxxxxxx\nxxxxxxxx\nxxxxxxxx\nxxxxxxxx\nxxxxxxxx\nxxxxxxxx\nxxxxxxxx\nxxxxxxxx\nxxxxxxxx\nxxxxxxxx\nxxxxxxxx\nxxxxxxxx\nxxxxxxxx\n",
+            //    Version = "1.1.1.1",
+            //    ServerUrl = "http://101.201.142.93:18080/DotNetAutoUpdaterTest/",
+            //    UpdateItems = new System.Collections.Generic.List<UpdateItem>() {
+            //            new UpdateItem{
+            //                 MinVersion="0.0.0.0",
+            //                 Version="1.0.0.0",
+            //                 ValideMode= ValideMode.Version,
+            //                 Path="DotNetAutoUpdater.dll",
+            //                 Required=false
+            //            },
+            //            new UpdateItem{
+            //                 MinVersion="0.0.0.0",
+            //                 Version="1.0.0.0",
+            //                 ValideMode= ValideMode.Version,
+            //                 Path="DotNetAutoUpdaterTest.exe",
+            //                 Required=false
+            //            },
+            //            new UpdateItem{
+            //                 MinVersion="0.0.0.0",
+            //                 Version="1.0.0.0",
+            //                 ValideMode= ValideMode.Version,
+            //                 Path="b/DotNetAutoUpdaterTest.exe",
+            //                 Required=false
+            //            },
+            //            new UpdateItem{
+            //                 MinVersion="0.0.0.0",
+            //                 Version="1.0.0.0",
+            //                 ValideMode= ValideMode.Version,
+            //                 Path="a/DotNetAutoUpdater.dll",
+            //                 Required=false
+            //            }
+            //        }
+            //};
 
             Console.ReadKey();
             //ZipFile(@"D:\git\DotNetAutoUpdater\Tools\DotNetAutoUpdater.exe");
@@ -51,9 +51,6 @@ namespace DotNetAutoUpdaterTest
             //new AutoUpdate().Update(op);
             new AutoUpdate().Update("http://101.201.142.93:18080/DotNetAutoUpdaterTest/update.xml");
 
-            //var json = Newtonsoft.Json.JsonConvert.SerializeObject(op);
-            //System.Console.WriteLine(json);
-            //var opt = Newtonsoft.Json.JsonConvert.DeserializeObject<UpdateOption>(json);
             Console.ReadKey();
         }
 

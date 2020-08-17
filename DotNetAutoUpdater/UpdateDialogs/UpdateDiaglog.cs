@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Diagnostics;
 using System.IO;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
@@ -43,10 +44,18 @@ namespace DotNetAutoUpdater.UpdateDialogs
             lblProcess.UpdateUI(() => lblProcess.Text = $"{_updateToolOption.AppName} {_updateToolOption.PID}");
             try
             {
-                Process.GetProcessById(_updateToolOption.PID)?.Kill();
-
                 var fileInfo = new FileInfo(_updateToolOption.AppFullPath);
                 BackupUpdate(fileInfo.DirectoryName);
+
+                var processList = Process.GetProcesses();
+                foreach (var item in processList)
+                {
+                    if (item.ProcessName == _updateToolOption.AppName) item.Kill();
+
+                    if (item.Id == _updateToolOption.PID) item.Kill();
+                }
+
+                Thread.Sleep(500);
 
                 InstallUpdate(fileInfo.DirectoryName);
 
@@ -107,8 +116,13 @@ namespace DotNetAutoUpdater.UpdateDialogs
         {
             if (Directory.Exists(ConstResources.BackupFolder)) Directory.Delete(ConstResources.BackupFolder, true);
             if (Directory.Exists(ConstResources.UpdateFolder)) Directory.Delete(ConstResources.UpdateFolder, true);
-            if (Directory.Exists(Path.Combine(ConstResources.TempFolder, ConstResources.TempUpdateOption)))
-                Directory.Delete(Path.Combine(ConstResources.TempFolder, ConstResources.TempUpdateOption), true);
+            if (File.Exists(Path.Combine(ConstResources.TempFolder, ConstResources.TempUpdateOption)))
+                File.Delete(Path.Combine(ConstResources.TempFolder, ConstResources.TempUpdateOption));
+
+            var psi = new ProcessStartInfo("cmd.exe", $"/C ping 1.1.1.1 -n 1 -w 1000 > Nul & Del {Path.Combine(ConstResources.TempFolder, ConstResources.UpdateToolName)}");
+            psi.WindowStyle = ProcessWindowStyle.Hidden;
+            psi.CreateNoWindow = true;
+            Process.Start(psi);
         }
 
         private void Finished()

@@ -52,7 +52,8 @@ namespace DotNetAutoUpdater.UpdateDialogs
 
             LoadUpdateItem();
 
-            new TaskFactory().StartNew((new Action(() => BeginDownload())));
+            new TaskFactory(TaskCreationOptions.AttachedToParent, TaskContinuationOptions.AttachedToParent)
+                .StartNew((new Action(() => BeginDownload())));
         }
 
         private void LoadUpdateItem()

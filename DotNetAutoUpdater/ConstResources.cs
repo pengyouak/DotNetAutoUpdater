@@ -18,15 +18,15 @@ namespace DotNetAutoUpdater
 
         #region message
 
-        public static readonly string UpdateJsonFileEmpty = GetText(Lang, new Dictionary<string, string> {
+        public static readonly string UpdateXmlFileEmpty = GetText(Lang, new Dictionary<string, string> {
                 {"zh-cn","更新配置文件内容为空" }
             });
 
-        public static readonly string UpdateJsonFileNotFound = GetText(Lang, new Dictionary<string, string> {
+        public static readonly string UpdateXmlFileNotFound = GetText(Lang, new Dictionary<string, string> {
                 {"zh-cn","更新配置未找到" }
             });
 
-        public static readonly string UpdateJsonFileFormatInvalid = GetText(Lang, new Dictionary<string, string> {
+        public static readonly string UpdateXmlFileFormatInvalid = GetText(Lang, new Dictionary<string, string> {
                 {"zh-cn","更新配置文件反序列化失败" }
             });
 
