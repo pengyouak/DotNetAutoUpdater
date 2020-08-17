@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <UpdateOption xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
   <Version>1.1.1.1</Version>
-  <ServerUrl>http://101.201.142.93:18080/DotNetAutoUpdaterTest/</ServerUrl>
+  <ServerUrl>http://xxx.xxx.xxx/</ServerUrl>
   <UpdateMode>Force</UpdateMode>
   <ChangeLog>
     xxxxxxxx
