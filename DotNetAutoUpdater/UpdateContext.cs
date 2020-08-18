@@ -1,5 +1,4 @@
 ﻿using System;
-using System.IO;
 using System.Net;
 
 namespace DotNetAutoUpdater
@@ -24,21 +23,7 @@ namespace DotNetAutoUpdater
 
         #region properties
 
-        public string TempFolderPath { get; set; } = Path.Combine(Path.GetTempPath(), "DotNetAutoUpdater");
-
-        public string DownloadFolderName { get; set; } = "_Update";
-
-        public string BackupFolderName { get; set; } = "_Backup";
-
-        public string InstallFolderPath { get; set; } = AppDomain.CurrentDomain.BaseDirectory;
-
-        public string TempUpdateOption { get; set; } = "UpdateOption.tmp";
-
-        public string UpdateToolName { get; set; } = "DotNetAutoUpdater.exe";
-
-        public string APPFullName { get; set; }
-
-        public int PID { get; set; }
+        public AppUpdateInfoArgs AppUpdateInfoArgs { get; set; }
 
         public bool Synchronous { get; set; }
 
@@ -48,20 +33,14 @@ namespace DotNetAutoUpdater
 
         #endregion properties
 
-        #region public methods
-
-        public string GetDownloadFolderFullPath() => Path.Combine(TempFolderPath, DownloadFolderName);
-
-        public string GetBackupFolderFullPath() => Path.Combine(TempFolderPath, BackupFolderName);
-
-        #endregion public methods
-
         #region constructors
 
         public UpdateContext()
         {
             UpdateOptionProvider = new XmlUpdateOptionProvider();
             UpdateStartInfoProvider = new DefaultUpdateStartInfoProvider();
+
+            AppUpdateInfoArgs = new AppUpdateInfoArgs();
         }
 
         #endregion constructors

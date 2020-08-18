@@ -16,7 +16,7 @@ namespace DotNetAutoUpdater
 
             if (args.Length == 0) return;
 
-            var option = new UpdateToolOption();
+            var option = new AppUpdateInfoArgs();
             int index = 0;
             while (index < args.Length)
             {
@@ -31,16 +31,15 @@ namespace DotNetAutoUpdater
 
                     case "-a":
                     case "/app":
-                        option.AppFullPath = args[index++];
+                        option.APPFullName = args[index++];
                         break;
                 }
             }
 
-            option.UpdateOption = XmlSerializerHelper.XmlDeSerializeObject<UpdateOption>(File.ReadAllText(Path.Combine(AutoUpdate.UpdateContext.TempFolderPath, AutoUpdate.UpdateContext.TempUpdateOption)));
+            var items = XmlSerializerHelper.XmlDeSerializeObject<UpdateOption>(
+                File.ReadAllText(Path.Combine(option.TempFolderPath, option.TempUpdateOption)));
 
-            if (option.UpdateOption == null) return;
-
-            Application.Run(new UpdateDialogs.UpdateDiaglog(option));
+            Application.Run(new UpdateDialogs.UpdateDiaglog(option, items));
         }
     }
 }

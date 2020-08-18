@@ -9,9 +9,14 @@ namespace DotNetAutoUpdater.UpdateDialogs
 {
     public partial class DownloadDiaglog : Form
     {
-        public DownloadDiaglog()
+        private SynchronizationContext _synchronizationContext;
+        private UpdateContext _updateContext;
+
+        public DownloadDiaglog(UpdateContext updateContext)
         {
             InitializeComponent();
+            _updateContext = updateContext;
+            _synchronizationContext = SynchronizationContext.Current; ;
         }
 
         private void btnShowList_Click(object sender, EventArgs e)
@@ -55,7 +60,7 @@ namespace DotNetAutoUpdater.UpdateDialogs
 
         private void LoadUpdateItem()
         {
-            foreach (var item in AutoUpdate.UpdateContext.UpdateOption.UpdateItems)
+            foreach (var item in _updateContext.UpdateOption.UpdateItems)
             {
                 lsvUpdateItems.Items.Add(new ListViewItem(new[] { item.Path, item.Version, item.ChangeLog }) { Tag = item });
             }
@@ -63,7 +68,7 @@ namespace DotNetAutoUpdater.UpdateDialogs
 
         private void BeginDownload()
         {
-            var tempFolder = AutoUpdate.UpdateContext.GetDownloadFolderFullPath();
+            var tempFolder = _updateContext.AppUpdateInfoArgs.GetDownloadFolderFullPath();
             // template folder
             if (Directory.Exists(tempFolder))
                 Directory.Delete(tempFolder, true);
@@ -74,7 +79,7 @@ namespace DotNetAutoUpdater.UpdateDialogs
             var evtPerDonwload = new ManualResetEvent(false);
             WebClient downloadClient = null;
             int index = 0;
-            foreach (var item in AutoUpdate.UpdateContext.UpdateOption.UpdateItems)
+            foreach (var item in _updateContext.UpdateOption.UpdateItems)
             {
                 try
                 {
@@ -98,7 +103,7 @@ namespace DotNetAutoUpdater.UpdateDialogs
                         // refresh total progress
                         progressBarTotal.UpdateUI(() =>
                         {
-                            var progress = 100 * ((index + e.ProgressPercentage / 100) / AutoUpdate.UpdateContext.UpdateOption.UpdateItems.Count);
+                            var progress = 100 * ((index + e.ProgressPercentage / 100) / _updateContext.UpdateOption.UpdateItems.Count);
                             progressBarTotal.Value = progress > progressBarTotal.Maximum ? progressBarTotal.Maximum : progress;
                         });
                     };
@@ -121,7 +126,7 @@ namespace DotNetAutoUpdater.UpdateDialogs
                     var folder = Path.GetDirectoryName(Path.Combine(tempFolder, item.Path));
                     if (!Directory.Exists(folder)) Directory.CreateDirectory(folder);
 
-                    downloadClient.DownloadFileAsync(new Uri(AutoUpdate.UpdateContext.UpdateOption.ServerUrl + item.Path),
+                    downloadClient.DownloadFileAsync(new Uri(_updateContext.UpdateOption.ServerUrl + item.Path),
                        Path.Combine(tempFolder, item.Path));
 
                     evtPerDonwload.WaitOne();
@@ -136,10 +141,12 @@ namespace DotNetAutoUpdater.UpdateDialogs
                 index++;
             }
 
-            XmlSerializerHelper.XmlSerializeObject(AutoUpdate.UpdateContext.UpdateOption, Path.Combine(AutoUpdate.UpdateContext.TempFolderPath, AutoUpdate.UpdateContext.TempUpdateOption));
+            XmlSerializerHelper.XmlSerializeObject(_updateContext.UpdateOption,
+                Path.Combine(_updateContext.AppUpdateInfoArgs.TempFolderPath, _updateContext.AppUpdateInfoArgs.TempUpdateOption));
 
             DialogResult = DialogResult.OK;
-            Close();
+
+            _synchronizationContext.Send(new SendOrPostCallback(obj => { Close(); }), null);
         }
 
         private string FormatBytesReceived(long bytesReceived)

@@ -4,6 +4,6 @@ namespace DotNetAutoUpdater
 {
     public interface IUpdateStartInfoProvider
     {
-        ProcessStartInfo ParseStartInfo(ParseStartInfoArg arg);
+        ProcessStartInfo ParseStartInfo(AppUpdateInfoArgs arg);
     }
 }

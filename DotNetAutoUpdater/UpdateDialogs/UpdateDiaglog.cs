@@ -9,12 +9,14 @@ namespace DotNetAutoUpdater.UpdateDialogs
 {
     public partial class UpdateDiaglog : Form
     {
-        private UpdateToolOption _updateToolOption;
+        private AppUpdateInfoArgs _appUpdateInfoArgs;
+        private UpdateOption _updateOption;
 
-        internal UpdateDiaglog(UpdateToolOption updateToolOption)
+        internal UpdateDiaglog(AppUpdateInfoArgs appUpdateInfoArgs, UpdateOption updateOption)
         {
             InitializeComponent();
-            _updateToolOption = updateToolOption;
+            _appUpdateInfoArgs = appUpdateInfoArgs;
+            _updateOption = updateOption;
         }
 
         private void DownloadDiaglog_Load(object sender, EventArgs e)
@@ -41,18 +43,18 @@ namespace DotNetAutoUpdater.UpdateDialogs
         private void BeginUpdate()
         {
             // 结束进程
-            lblProcess.UpdateUI(() => lblProcess.Text = $"{_updateToolOption.AppName} {_updateToolOption.PID}");
+            lblProcess.UpdateUI(() => lblProcess.Text = $"{_appUpdateInfoArgs.AppName} {_appUpdateInfoArgs.PID}");
             try
             {
-                var fileInfo = new FileInfo(_updateToolOption.AppFullPath);
+                var fileInfo = new FileInfo(_appUpdateInfoArgs.APPFullName);
                 BackupUpdate(fileInfo.DirectoryName);
 
                 var processList = Process.GetProcesses();
                 foreach (var item in processList)
                 {
-                    if (item.ProcessName == _updateToolOption.AppName) item.Kill();
+                    if (item.ProcessName == _appUpdateInfoArgs.AppName) item.Kill();
 
-                    if (item.Id == _updateToolOption.PID) item.Kill();
+                    if (item.Id == _appUpdateInfoArgs.PID) item.Kill();
                 }
 
                 Thread.Sleep(500);
@@ -62,7 +64,7 @@ namespace DotNetAutoUpdater.UpdateDialogs
                 Clear();
 
                 // 启动进程
-                Process.Start(_updateToolOption.AppFullPath);
+                Process.Start(_appUpdateInfoArgs.APPFullName);
 
                 Finished();
             }
@@ -73,12 +75,12 @@ namespace DotNetAutoUpdater.UpdateDialogs
 
         private void BackupUpdate(string appFolder)
         {
-            var backFolder = AutoUpdate.UpdateContext.GetBackupFolderFullPath();
+            var backFolder = _appUpdateInfoArgs.GetBackupFolderFullPath();
             if (!Directory.Exists(backFolder)) Directory.CreateDirectory(backFolder);
 
             try
             {
-                foreach (var item in _updateToolOption.UpdateOption.UpdateItems)
+                foreach (var item in _updateOption.UpdateItems)
                 {
                     var backupPath = Path.Combine(backFolder, item.Path);
                     var filePath = Path.Combine(appFolder, item.Path);
@@ -95,10 +97,10 @@ namespace DotNetAutoUpdater.UpdateDialogs
 
             try
             {
-                foreach (var item in _updateToolOption.UpdateOption.UpdateItems)
+                foreach (var item in _updateOption.UpdateItems)
                 {
                     var appPath = Path.Combine(appFolder, item.Path);
-                    var updatePath = Path.Combine(AutoUpdate.UpdateContext.GetDownloadFolderFullPath(), item.Path);
+                    var updatePath = Path.Combine(_appUpdateInfoArgs.GetDownloadFolderFullPath(), item.Path);
                     var fileInfo = new FileInfo(appPath);
 
                     if (!Directory.Exists(fileInfo.DirectoryName)) Directory.CreateDirectory(fileInfo.DirectoryName);
@@ -114,12 +116,12 @@ namespace DotNetAutoUpdater.UpdateDialogs
 
         private void Clear()
         {
-            if (Directory.Exists(AutoUpdate.UpdateContext.GetBackupFolderFullPath())) Directory.Delete(AutoUpdate.UpdateContext.GetBackupFolderFullPath(), true);
-            if (Directory.Exists(AutoUpdate.UpdateContext.GetDownloadFolderFullPath())) Directory.Delete(AutoUpdate.UpdateContext.GetDownloadFolderFullPath(), true);
-            if (File.Exists(Path.Combine(AutoUpdate.UpdateContext.TempFolderPath, AutoUpdate.UpdateContext.TempUpdateOption)))
-                File.Delete(Path.Combine(AutoUpdate.UpdateContext.TempFolderPath, AutoUpdate.UpdateContext.TempUpdateOption));
+            if (Directory.Exists(_appUpdateInfoArgs.GetBackupFolderFullPath())) Directory.Delete(_appUpdateInfoArgs.GetBackupFolderFullPath(), true);
+            if (Directory.Exists(_appUpdateInfoArgs.GetDownloadFolderFullPath())) Directory.Delete(_appUpdateInfoArgs.GetDownloadFolderFullPath(), true);
+            if (File.Exists(Path.Combine(_appUpdateInfoArgs.TempFolderPath, _appUpdateInfoArgs.TempUpdateOption)))
+                File.Delete(Path.Combine(_appUpdateInfoArgs.TempFolderPath, _appUpdateInfoArgs.TempUpdateOption));
 
-            var psi = new ProcessStartInfo("cmd.exe", $"/C ping 1.1.1.1 -n 1 -w 1000 > Nul & Del {Path.Combine(AutoUpdate.UpdateContext.TempFolderPath, AutoUpdate.UpdateContext.UpdateToolName)}");
+            var psi = new ProcessStartInfo("cmd.exe", $"/C ping 1.1.1.1 -n 1 -w 1000 > Nul & Del {Path.Combine(_appUpdateInfoArgs.TempFolderPath, _appUpdateInfoArgs.UpdateToolName)}");
             psi.WindowStyle = ProcessWindowStyle.Hidden;
             psi.CreateNoWindow = true;
             Process.Start(psi);

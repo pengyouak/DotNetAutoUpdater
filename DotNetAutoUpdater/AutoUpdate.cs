@@ -19,7 +19,7 @@ namespace DotNetAutoUpdater
 
         #region public properties
 
-        public static UpdateContext UpdateContext { get; set; }
+        public UpdateContext UpdateContext { get; private set; }
 
         #endregion public properties
 
@@ -83,7 +83,6 @@ namespace DotNetAutoUpdater
                 {
                     CheckForUpdateEvent?.Invoke(new AutoUpdateArgs
                     {
-                        Uri = uri,
                         Message = ConstResources.UpdateXmlFileEmpty,
                         UpdateContext = UpdateContext
                     });
@@ -102,7 +101,6 @@ namespace DotNetAutoUpdater
             {
                 CheckForUpdateEvent?.Invoke(new AutoUpdateArgs
                 {
-                    Uri = uri,
                     Message = ConstResources.UpdateXmlFileNotFound,
                     UpdateContext = UpdateContext
                 });
@@ -112,7 +110,6 @@ namespace DotNetAutoUpdater
             {
                 CheckForUpdateEvent?.Invoke(new AutoUpdateArgs
                 {
-                    Uri = uri,
                     Message = ConstResources.UpdateXmlFileEmpty,
                     UpdateContext = UpdateContext
                 });
@@ -127,11 +124,11 @@ namespace DotNetAutoUpdater
 
             if (UpdateContext.UpdateOption.UpdateMode != UpdateMode.Force)
             {
-                var confirm = new ConfirmDiaglog(UpdateContext.UpdateOption);
+                var confirm = new ConfirmDiaglog(UpdateContext);
                 if (confirm.ShowDialog() == System.Windows.Forms.DialogResult.Cancel) return;
             }
 
-            var download = new DownloadDiaglog();
+            var download = new DownloadDiaglog(UpdateContext);
             if (download.ShowDialog() == System.Windows.Forms.DialogResult.Cancel) return;
 
             ExecUpdateApp();
@@ -142,14 +139,7 @@ namespace DotNetAutoUpdater
             if (UpdateContext.UpdateStartInfoProvider == null)
                 return;
 
-            var processInfo = UpdateContext.UpdateStartInfoProvider.ParseStartInfo(new ParseStartInfoArg
-            {
-                DownloadFolderPath = UpdateContext.GetDownloadFolderFullPath(),
-                BackupFolderPath = UpdateContext.GetBackupFolderFullPath(),
-                InstallFolderPath = UpdateContext.InstallFolderPath,
-                UpdateToolName = UpdateContext.UpdateToolName,
-                TempUpdateOption = UpdateContext.TempUpdateOption
-            });
+            var processInfo = UpdateContext.UpdateStartInfoProvider.ParseStartInfo(UpdateContext.AppUpdateInfoArgs);
             Process.Start(processInfo);
         }
     }

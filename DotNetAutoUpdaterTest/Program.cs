@@ -9,7 +9,7 @@ namespace DotNetAutoUpdaterTest
         {
             Console.ReadKey();
 
-            new AutoUpdate().Update("http://xx.xx.xx/update.xml");
+            new AutoUpdate().Update("http://101.201.142.93:18080/DotNetAutoUpdaterTest/update.xml");
 
             Console.ReadKey();
         }

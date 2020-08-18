@@ -5,9 +5,12 @@ namespace DotNetAutoUpdater.UpdateDialogs
 {
     public partial class ConfirmDiaglog : Form
     {
-        public ConfirmDiaglog(UpdateOption updateOption)
+        private UpdateContext _updateContext;
+
+        public ConfirmDiaglog(UpdateContext updateContext)
         {
             InitializeComponent();
+            _updateContext = updateContext;
         }
 
         private void ConfirmDiaglog_Load(object sender, System.EventArgs e)
@@ -23,15 +26,15 @@ namespace DotNetAutoUpdater.UpdateDialogs
             btnSkip.Text = ConstResources.ButtonTextConfirmSkip;
 
             lblFileName.Text = Assembly.GetEntryAssembly().GetName().Name;
-            lblVersion.Text = $"{AutoUpdate.UpdateContext.UpdateOption.InstalledVersion} to {AutoUpdate.UpdateContext.UpdateOption.UpdateVersion}";
-            txtChangeLog.Text = AutoUpdate.UpdateContext.UpdateOption.ChangeLog;
+            lblVersion.Text = $"{_updateContext.UpdateOption.InstalledVersion} to {_updateContext.UpdateOption.UpdateVersion}";
+            txtChangeLog.Text = _updateContext.UpdateOption.ChangeLog;
 
-            if (AutoUpdate.UpdateContext.UpdateOption.UpdateMode == UpdateMode.PromptAndDetail)
+            if (_updateContext.UpdateOption.UpdateMode == UpdateMode.PromptAndDetail)
             {
                 txtChangeLog.Visible = true;
                 this.Size = this.MaximumSize;
             }
-            else if (AutoUpdate.UpdateContext.UpdateOption.UpdateMode == UpdateMode.Prompt)
+            else if (_updateContext.UpdateOption.UpdateMode == UpdateMode.Prompt)
             {
                 txtChangeLog.Visible = false;
                 this.Size = this.MinimumSize;
