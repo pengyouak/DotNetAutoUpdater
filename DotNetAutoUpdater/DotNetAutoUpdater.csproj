@@ -109,9 +109,6 @@
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
-    <None Include="bin\Debug\DotNetAutoUpdater.exe" />
-  </ItemGroup>
-  <ItemGroup>
     <None Include="Resources\DotNetAutoUpdater.exe" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
