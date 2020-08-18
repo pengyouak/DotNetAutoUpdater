@@ -9,7 +9,7 @@ namespace DotNetAutoUpdaterTest
         {
             Console.ReadKey();
 
-            new AutoUpdate().Update("http://xxx.xxx.xxx/update.xml");
+            new AutoUpdate().Update("http://xx.xx.xx/update.xml");
 
             Console.ReadKey();
         }

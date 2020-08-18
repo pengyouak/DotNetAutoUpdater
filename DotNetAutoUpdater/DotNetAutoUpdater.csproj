@@ -51,11 +51,13 @@
     <Compile Include="AutoUpdateArgs.cs" />
     <Compile Include="AutoUpdateExtensions.cs" />
     <Compile Include="ConstResources.cs" />
-    <Compile Include="DefaultUpdateStartInfoHandler.cs" />
+    <Compile Include="RegistryPersistenceProvider.cs" />
+    <Compile Include="DefaultUpdateStartInfoProvider.cs" />
     <Compile Include="IAuthentication.cs" />
     <Compile Include="IAutoUpdater.cs" />
-    <Compile Include="IUpdateOptionHandler.cs" />
-    <Compile Include="IUpdateStartInfo.cs" />
+    <Compile Include="IPersistenceProvider.cs" />
+    <Compile Include="IUpdateOptionProvider.cs" />
+    <Compile Include="IUpdateStartInfoProvider.cs" />
     <Compile Include="ParseStartInfoArg.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -86,9 +88,8 @@
     <Compile Include="UpdateMode.cs" />
     <Compile Include="UpdateOption.cs" />
     <Compile Include="UpdateContext.cs" />
-    <Compile Include="XmlUpdateOptionHandler.cs" />
+    <Compile Include="XmlUpdateOptionProvider.cs" />
     <Compile Include="UpdateToolOption.cs" />
-    <Compile Include="ValideMode.cs" />
     <Compile Include="XmlSerializerHelper.cs" />
   </ItemGroup>
   <ItemGroup>

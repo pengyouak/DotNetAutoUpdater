@@ -1,6 +1,6 @@
 ﻿namespace DotNetAutoUpdater
 {
-    internal class XmlUpdateOptionHandler : IUpdateOptionHandler
+    internal class XmlUpdateOptionProvider : IUpdateOptionProvider
     {
         public UpdateOption ParseUpdateOption(string str)
         {

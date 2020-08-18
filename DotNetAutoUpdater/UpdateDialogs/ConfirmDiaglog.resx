@@ -342,31 +342,31 @@
   <data name="&gt;&gt;lblTitle.ZOrder" xml:space="preserve">
     <value>1</value>
   </data>
-  <data name="btnRemaindLater.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+  <data name="btnRemindLater.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
     <value>NoControl</value>
   </data>
-  <data name="btnRemaindLater.Location" type="System.Drawing.Point, System.Drawing">
+  <data name="btnRemindLater.Location" type="System.Drawing.Point, System.Drawing">
     <value>233, 8</value>
   </data>
-  <data name="btnRemaindLater.Size" type="System.Drawing.Size, System.Drawing">
+  <data name="btnRemindLater.Size" type="System.Drawing.Size, System.Drawing">
     <value>118, 23</value>
   </data>
-  <data name="btnRemaindLater.TabIndex" type="System.Int32, mscorlib">
+  <data name="btnRemindLater.TabIndex" type="System.Int32, mscorlib">
     <value>3</value>
   </data>
-  <data name="btnRemaindLater.Text" xml:space="preserve">
+  <data name="btnRemindLater.Text" xml:space="preserve">
     <value>稍后提醒</value>
   </data>
-  <data name="&gt;&gt;btnRemaindLater.Name" xml:space="preserve">
-    <value>btnRemaindLater</value>
+  <data name="&gt;&gt;btnRemindLater.Name" xml:space="preserve">
+    <value>btnRemindLater</value>
   </data>
-  <data name="&gt;&gt;btnRemaindLater.Type" xml:space="preserve">
+  <data name="&gt;&gt;btnRemindLater.Type" xml:space="preserve">
     <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="&gt;&gt;btnRemaindLater.Parent" xml:space="preserve">
+  <data name="&gt;&gt;btnRemindLater.Parent" xml:space="preserve">
     <value>panel2</value>
   </data>
-  <data name="&gt;&gt;btnRemaindLater.ZOrder" xml:space="preserve">
+  <data name="&gt;&gt;btnRemindLater.ZOrder" xml:space="preserve">
     <value>0</value>
   </data>
   <data name="btnSkip.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">

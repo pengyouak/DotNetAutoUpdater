@@ -1,6 +1,6 @@
 ﻿namespace DotNetAutoUpdater
 {
-    public interface IUpdateOptionHandler
+    public interface IUpdateOptionProvider
     {
         UpdateOption ParseUpdateOption(string str);
     }

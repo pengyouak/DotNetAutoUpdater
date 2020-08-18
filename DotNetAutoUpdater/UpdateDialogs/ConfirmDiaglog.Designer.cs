@@ -34,6 +34,8 @@
             this.lblSubTitle = new System.Windows.Forms.Label();
             this.lblTitle = new System.Windows.Forms.Label();
             this.panel2 = new System.Windows.Forms.Panel();
+            this.btnRemindLater = new System.Windows.Forms.Button();
+            this.btnSkip = new System.Windows.Forms.Button();
             this.btnUpdate = new System.Windows.Forms.Button();
             this.btnCancel = new System.Windows.Forms.Button();
             this.panel3 = new System.Windows.Forms.Panel();
@@ -42,8 +44,6 @@
             this.panel4 = new System.Windows.Forms.Panel();
             this.lblVersion = new System.Windows.Forms.Label();
             this.lblFileName = new System.Windows.Forms.Label();
-            this.btnSkip = new System.Windows.Forms.Button();
-            this.btnRemaindLater = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.panel1.SuspendLayout();
             this.panel2.SuspendLayout();
@@ -78,12 +78,26 @@
             // 
             // panel2
             // 
-            this.panel2.Controls.Add(this.btnRemaindLater);
+            this.panel2.Controls.Add(this.btnRemindLater);
             this.panel2.Controls.Add(this.btnSkip);
             this.panel2.Controls.Add(this.btnUpdate);
             this.panel2.Controls.Add(this.btnCancel);
             resources.ApplyResources(this.panel2, "panel2");
             this.panel2.Name = "panel2";
+            // 
+            // btnRemindLater
+            // 
+            resources.ApplyResources(this.btnRemindLater, "btnRemindLater");
+            this.btnRemindLater.Name = "btnRemindLater";
+            this.btnRemindLater.UseVisualStyleBackColor = true;
+            this.btnRemindLater.Click += new System.EventHandler(this.btnRemaindLater_Click);
+            // 
+            // btnSkip
+            // 
+            resources.ApplyResources(this.btnSkip, "btnSkip");
+            this.btnSkip.Name = "btnSkip";
+            this.btnSkip.UseVisualStyleBackColor = true;
+            this.btnSkip.Click += new System.EventHandler(this.btnSkip_Click);
             // 
             // btnUpdate
             // 
@@ -139,18 +153,6 @@
             resources.ApplyResources(this.lblFileName, "lblFileName");
             this.lblFileName.Name = "lblFileName";
             // 
-            // btnSkip
-            // 
-            resources.ApplyResources(this.btnSkip, "btnSkip");
-            this.btnSkip.Name = "btnSkip";
-            this.btnSkip.UseVisualStyleBackColor = true;
-            // 
-            // btnRemaindLater
-            // 
-            resources.ApplyResources(this.btnRemaindLater, "btnRemaindLater");
-            this.btnRemaindLater.Name = "btnRemaindLater";
-            this.btnRemaindLater.UseVisualStyleBackColor = true;
-            // 
             // ConfirmDiaglog
             // 
             resources.ApplyResources(this, "$this");
@@ -191,7 +193,7 @@
         private System.Windows.Forms.Label lblVersion;
         private System.Windows.Forms.Label lblFileName;
         private System.Windows.Forms.RichTextBox txtChangeLog;
-        private System.Windows.Forms.Button btnRemaindLater;
+        private System.Windows.Forms.Button btnRemindLater;
         private System.Windows.Forms.Button btnSkip;
     }
 }

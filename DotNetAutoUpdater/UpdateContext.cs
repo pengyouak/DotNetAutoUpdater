@@ -16,9 +16,9 @@ namespace DotNetAutoUpdater
 
         public IAuthentication RequestAuthorization;
 
-        public IUpdateOptionHandler UpdateOptionHandler;
+        public IUpdateOptionProvider UpdateOptionProvider;
 
-        public IUpdateStartInfoHandler UpdateStartInfoHandler;
+        public IUpdateStartInfoProvider UpdateStartInfoProvider;
 
         #endregion fields
 
@@ -60,8 +60,8 @@ namespace DotNetAutoUpdater
 
         public UpdateContext()
         {
-            UpdateOptionHandler = new XmlUpdateOptionHandler();
-            UpdateStartInfoHandler = new DefaultUpdateStartInfoHandler();
+            UpdateOptionProvider = new XmlUpdateOptionProvider();
+            UpdateStartInfoProvider = new DefaultUpdateStartInfoProvider();
         }
 
         #endregion constructors

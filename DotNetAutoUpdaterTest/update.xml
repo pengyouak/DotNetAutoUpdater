@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <UpdateOption xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
   <Version>1.1.1.1</Version>
-  <ServerUrl>http://xxx.xxx.xxx/</ServerUrl>
+  <ServerUrl>http://xx.xx.xx/</ServerUrl>
   <UpdateMode>Force</UpdateMode>
   <ChangeLog>
     xxxxxxxx
@@ -23,36 +23,20 @@
   </ChangeLog>
   <UpdateItems>
     <UpdateItem>
-      <UpdateDate>0001-01-01T00:00:00</UpdateDate>
-      <MinVersion>0.0.0.0</MinVersion>
       <Version>1.0.0.0</Version>
       <Path>DotNetAutoUpdater.dll</Path>
-      <ValideMode>Version</ValideMode>
-      <Required>false</Required>
     </UpdateItem>
     <UpdateItem>
-      <UpdateDate>0001-01-01T00:00:00</UpdateDate>
-      <MinVersion>0.0.0.0</MinVersion>
       <Version>1.0.0.0</Version>
       <Path>DotNetAutoUpdaterTest.exe</Path>
-      <ValideMode>Version</ValideMode>
-      <Required>false</Required>
     </UpdateItem>
     <UpdateItem>
-      <UpdateDate>0001-01-01T00:00:00</UpdateDate>
-      <MinVersion>0.0.0.0</MinVersion>
       <Version>1.0.0.0</Version>
       <Path>b/DotNetAutoUpdaterTest.exe</Path>
-      <ValideMode>Version</ValideMode>
-      <Required>false</Required>
     </UpdateItem>
     <UpdateItem>
-      <UpdateDate>0001-01-01T00:00:00</UpdateDate>
-      <MinVersion>0.0.0.0</MinVersion>
       <Version>1.0.0.0</Version>
       <Path>a/DotNetAutoUpdater.dll</Path>
-      <ValideMode>Version</ValideMode>
-      <Required>false</Required>
     </UpdateItem>
   </UpdateItems>
 </UpdateOption>

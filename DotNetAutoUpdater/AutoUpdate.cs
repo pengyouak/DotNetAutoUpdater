@@ -89,7 +89,10 @@ namespace DotNetAutoUpdater
                     });
                     return false;
                 }
-                UpdateContext.UpdateOption = UpdateContext.UpdateOptionHandler.ParseUpdateOption(xmlFile);
+
+                if (UpdateContext.UpdateOptionProvider == null) return false;
+
+                UpdateContext.UpdateOption = UpdateContext.UpdateOptionProvider.ParseUpdateOption(xmlFile);
 
                 UpdateContext.UpdateOption.InstalledVersion = Assembly.GetEntryAssembly().GetName().Version;
 
@@ -136,7 +139,10 @@ namespace DotNetAutoUpdater
 
         private void ExecUpdateApp()
         {
-            var processInfo = UpdateContext.UpdateStartInfoHandler.ParseStartInfo(new ParseStartInfoArg
+            if (UpdateContext.UpdateStartInfoProvider == null)
+                return;
+
+            var processInfo = UpdateContext.UpdateStartInfoProvider.ParseStartInfo(new ParseStartInfoArg
             {
                 DownloadFolderPath = UpdateContext.GetDownloadFolderFullPath(),
                 BackupFolderPath = UpdateContext.GetBackupFolderFullPath(),

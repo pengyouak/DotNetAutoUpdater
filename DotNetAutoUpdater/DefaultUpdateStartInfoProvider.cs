@@ -6,7 +6,7 @@ using System.Linq;
 
 namespace DotNetAutoUpdater
 {
-    internal class DefaultUpdateStartInfoHandler : IUpdateStartInfoHandler
+    internal class DefaultUpdateStartInfoProvider : IUpdateStartInfoProvider
     {
         public ProcessStartInfo ParseStartInfo(ParseStartInfoArg args)
         {

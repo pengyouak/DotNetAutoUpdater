@@ -19,7 +19,7 @@ namespace DotNetAutoUpdater.UpdateDialogs
 
             btnUpdate.Text = ConstResources.ButtonTextConfirmUpdate;
             btnCancel.Text = ConstResources.ButtonTextConfirmCancel;
-            btnRemaindLater.Text = ConstResources.ButtonTextConfirmRemaind;
+            btnRemindLater.Text = ConstResources.ButtonTextConfirmRemind;
             btnSkip.Text = ConstResources.ButtonTextConfirmSkip;
 
             lblFileName.Text = Assembly.GetEntryAssembly().GetName().Name;
@@ -48,6 +48,14 @@ namespace DotNetAutoUpdater.UpdateDialogs
         {
             DialogResult = DialogResult.Cancel;
             this.Close();
+        }
+
+        private void btnSkip_Click(object sender, System.EventArgs e)
+        {
+        }
+
+        private void btnRemaindLater_Click(object sender, System.EventArgs e)
+        {
         }
     }
 }

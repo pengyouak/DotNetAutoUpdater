@@ -2,7 +2,7 @@
 
 namespace DotNetAutoUpdater
 {
-    public interface IUpdateStartInfoHandler
+    public interface IUpdateStartInfoProvider
     {
         ProcessStartInfo ParseStartInfo(ParseStartInfoArg arg);
     }
