@@ -21,6 +21,14 @@ namespace DotNetAutoUpdater
                 {"zh-CN","更新配置文件反序列化失败" }
             });
 
+        public static readonly string UpdateNullUpdateOptionTitle = GetText(Lang, new Dictionary<string, string> {
+                {"zh-CN","更新失败" }
+            });
+
+        public static readonly string UpdateNullUpdateOptionMessage = GetText(Lang, new Dictionary<string, string> {
+                {"zh-CN","获取更新文件缓存失败" }
+            });
+
         #endregion message
 
         #region control

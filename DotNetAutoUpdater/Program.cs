@@ -39,6 +39,16 @@ namespace DotNetAutoUpdater
             var items = XmlSerializerHelper.XmlDeSerializeObject<UpdateOption>(
                 File.ReadAllText(Path.Combine(option.TempFolderPath, option.TempUpdateOption)));
 
+            if (items == null)
+            {
+                MessageBox.Show(
+                    ConstResources.UpdateNullUpdateOptionMessage,
+                    ConstResources.UpdateNullUpdateOptionTitle,
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Error);
+                return;
+            }
+
             Application.Run(new UpdateDialogs.UpdateDiaglog(option, items));
         }
     }
