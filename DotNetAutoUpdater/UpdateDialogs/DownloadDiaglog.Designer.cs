@@ -62,10 +62,10 @@
             // 
             // panel1
             // 
-            resources.ApplyResources(this.panel1, "panel1");
             this.panel1.Controls.Add(this.lblSubTitle);
             this.panel1.Controls.Add(this.lblTitle);
             this.panel1.Controls.Add(this.pictureBox1);
+            resources.ApplyResources(this.panel1, "panel1");
             this.panel1.Name = "panel1";
             // 
             // lblSubTitle
@@ -80,9 +80,9 @@
             // 
             // panel2
             // 
-            resources.ApplyResources(this.panel2, "panel2");
             this.panel2.Controls.Add(this.btnShowList);
             this.panel2.Controls.Add(this.btnCancel);
+            resources.ApplyResources(this.panel2, "panel2");
             this.panel2.Name = "panel2";
             // 
             // btnShowList
@@ -101,15 +101,15 @@
             // 
             // panel3
             // 
-            resources.ApplyResources(this.panel3, "panel3");
             this.panel3.Controls.Add(this.panel5);
             this.panel3.Controls.Add(this.panel4);
+            resources.ApplyResources(this.panel3, "panel3");
             this.panel3.Name = "panel3";
             // 
             // panel5
             // 
-            resources.ApplyResources(this.panel5, "panel5");
             this.panel5.Controls.Add(this.lsvUpdateItems);
+            resources.ApplyResources(this.panel5, "panel5");
             this.panel5.Name = "panel5";
             // 
             // lsvUpdateItems
@@ -124,7 +124,6 @@
             // 
             // panel4
             // 
-            resources.ApplyResources(this.panel4, "panel4");
             this.panel4.BackColor = System.Drawing.Color.White;
             this.panel4.Controls.Add(this.progressBarTotal);
             this.panel4.Controls.Add(this.progressBarCurrent);
@@ -132,6 +131,7 @@
             this.panel4.Controls.Add(this.lblCurDownload);
             this.panel4.Controls.Add(this.lblVersion);
             this.panel4.Controls.Add(this.lblFileName);
+            resources.ApplyResources(this.panel4, "panel4");
             this.panel4.Name = "panel4";
             // 
             // progressBarTotal

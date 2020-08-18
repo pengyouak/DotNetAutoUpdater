@@ -107,9 +107,9 @@
             this.lblProcess.AutoSize = true;
             this.lblProcess.Location = new System.Drawing.Point(17, 69);
             this.lblProcess.Name = "lblProcess";
-            this.lblProcess.Size = new System.Drawing.Size(95, 12);
+            this.lblProcess.Size = new System.Drawing.Size(29, 12);
             this.lblProcess.TabIndex = 14;
-            this.lblProcess.Text = "Total Progress:";
+            this.lblProcess.Text = "进度";
             // 
             // panel2
             // 
