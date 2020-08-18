@@ -36,8 +36,8 @@ namespace DotNetAutoUpdater
         public AppUpdateArgs(int pid, string appname, string fullname)
         {
             PID = pid;
-            APPFullName = appname;
-            AppName = fullname;
+            AppName = appname;
+            APPFullName = fullname;
         }
 
         #endregion constructor

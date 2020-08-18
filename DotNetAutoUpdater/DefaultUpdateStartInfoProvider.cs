@@ -21,7 +21,8 @@ namespace DotNetAutoUpdater
 
             return new ProcessStartInfo(updaterExe, string.Join(" ", arguments))
             {
-                UseShellExecute = true
+                UseShellExecute = false,
+                CreateNoWindow = true
             };
         }
     }
