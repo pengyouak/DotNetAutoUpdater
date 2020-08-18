@@ -1,19 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 
 namespace DotNetAutoUpdater
 {
     public class ConstResources
     {
-        public static string TempFolder = System.IO.Path.Combine(System.IO.Path.GetTempPath(), "DotNetAutoUpdater");
-        public static string UpdateFolder = System.IO.Path.Combine(TempFolder, "_Update");
-        public static string BackupFolder = System.IO.Path.Combine(TempFolder, "_Backup");
-        public static string AppFolder = AppDomain.CurrentDomain.BaseDirectory;
-
-        public static string TempUpdateOption = "UpdateOption.tmp";
-        public static string UpdateToolName = "DotNetAutoUpdater.exe";
-
-        public static string DefaultLang = "zh-cn";
+        private static string DefaultLang = "zh-cn";
         public static string Lang = "zh-cn";
 
         #region message

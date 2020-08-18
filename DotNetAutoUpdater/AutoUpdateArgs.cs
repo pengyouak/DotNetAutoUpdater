@@ -10,7 +10,7 @@ namespace DotNetAutoUpdater
 
         public bool IsUpdateAvailable { get; set; }
 
-        public UpdateRequestOption UpdateRequestOption { get; set; }
+        public UpdateContext UpdateContext { get; set; }
 
         public UpdateOption UpdateOption { get; set; }
 

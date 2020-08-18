@@ -34,7 +34,7 @@ namespace DotNetAutoUpdater
                 }
             }
 
-            option.UpdateOption = UpdateOption.LoadUpdateOption(System.IO.File.ReadAllText(Path.Combine(ConstResources.TempFolder, ConstResources.TempUpdateOption)));
+            option.UpdateOption = XmlSerializerHelper.XmlDeSerializeObject<UpdateOption>(System.IO.File.ReadAllText(Path.Combine(AutoUpdate.UpdateContext.TempFolderPath, AutoUpdate.UpdateContext.TempUpdateOption)));
 
             if (option.UpdateOption == null) return;
 

@@ -1,7 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.IO;
-using System.Xml;
 using System.Xml.Serialization;
 
 namespace DotNetAutoUpdater
@@ -46,25 +44,5 @@ namespace DotNetAutoUpdater
         public string ChangeLog { get; set; }
 
         public List<UpdateItem> UpdateItems { get; set; }
-
-        public static UpdateOption LoadUpdateOption(string xml)
-        {
-            XmlSerializer xs = XmlSerializerHelper.Create(typeof(UpdateOption));
-
-            // XmlSerializer xs = XmlSerializer.FromTypes(new Type[] { typeof(UpdateOption) }).FirstOrDefault();
-
-            // XmlSerializer xs = new XmlSerializer(typeof(UpdateOption));
-            var reader = new XmlTextReader(new StringReader(xml));
-            var config = xs.Deserialize(reader) as UpdateOption;
-            reader.Close();
-            return config;
-        }
-
-        public static void SaveUpdateOption(UpdateOption updateOption, string file)
-        {
-            XmlSerializer xs = XmlSerializerHelper.Create(typeof(UpdateOption));
-            using (var writer = XmlWriter.Create(file))
-                xs.Serialize(writer, updateOption);
-        }
     }
 }

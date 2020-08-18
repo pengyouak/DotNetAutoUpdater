@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
+using System.Xml;
 using System.Xml.Serialization;
 
 namespace DotNetAutoUpdater
@@ -11,7 +13,7 @@ namespace DotNetAutoUpdater
 
         private static object SyncRootCache = new object();
 
-        public static XmlSerializer Create(Type type)
+        private static XmlSerializer Create(Type type)
         {
             XmlSerializer serializer;
 
@@ -35,6 +37,22 @@ namespace DotNetAutoUpdater
                 }
             }
             return serializer;
+        }
+
+        public static T XmlDeSerializeObject<T>(string str)
+        {
+            var xs = Create(typeof(T));
+            var reader = new XmlTextReader(new StringReader(str));
+            var config = (T)xs.Deserialize(reader);
+            reader.Close();
+            return config;
+        }
+
+        public static void XmlSerializeObject<T>(T updateOption, string file)
+        {
+            var xs = Create(typeof(T));
+            using (var writer = XmlWriter.Create(file))
+                xs.Serialize(writer, updateOption);
         }
     }
 }

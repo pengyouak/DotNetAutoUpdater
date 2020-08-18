@@ -12,12 +12,6 @@ namespace DotNetAutoUpdater
 {
     public class AutoUpdate : IAutoUpdater
     {
-        #region private fields
-
-        private UpdateOption _updateOption;
-
-        #endregion private fields
-
         #region public events
 
         public delegate void CheckForUpdateEventHandler(AutoUpdateArgs args);
@@ -28,30 +22,32 @@ namespace DotNetAutoUpdater
 
         #region public properties
 
-        public UpdateRequestOption UpdateRequestOption { get; set; }
+        public static UpdateContext UpdateContext { get; set; }
 
         #endregion public properties
 
         public void Update(UpdateOption updateOption)
         {
+            UpdateContext = new UpdateContext();
+
             if (updateOption == null) return;
 
-            _updateOption = updateOption;
+            UpdateContext.UpdateOption = updateOption;
 
-            _updateOption.InstalledVersion = Assembly.GetEntryAssembly().GetName().Version;
+            UpdateContext.UpdateOption.InstalledVersion = Assembly.GetEntryAssembly().GetName().Version;
 
-            _updateOption.IsUpdateAvailable = _updateOption.UpdateVersion > _updateOption.InstalledVersion;
+            UpdateContext.UpdateOption.IsUpdateAvailable = UpdateContext.UpdateOption.UpdateVersion > UpdateContext.UpdateOption.InstalledVersion;
 
             StartUpdate();
         }
 
         public void Update(string url)
         {
-            UpdateRequestOption = new UpdateRequestOption();
+            UpdateContext = new UpdateContext();
 
-            var uri = new Uri(url);
+            UpdateContext.UpdateUri = new Uri(url);
 
-            if (!BindOption(uri)) return;
+            if (!BindOption(UpdateContext.UpdateUri)) return;
 
             StartUpdate();
         }
@@ -63,23 +59,23 @@ namespace DotNetAutoUpdater
                 CachePolicy = new RequestCachePolicy(RequestCacheLevel.NoCacheNoStore)
             };
 
-            if (UpdateRequestOption.Proxy != null)
+            if (UpdateContext.Proxy != null)
             {
-                webClient.Proxy = UpdateRequestOption.Proxy;
+                webClient.Proxy = UpdateContext.Proxy;
             }
 
             if (uri.Scheme.Equals(Uri.UriSchemeFtp))
             {
-                webClient.Credentials = UpdateRequestOption.FtpCredentials;
+                webClient.Credentials = UpdateContext.FtpCredentials;
             }
             else
             {
-                if (UpdateRequestOption.RequestAuthorization != null)
+                if (UpdateContext.RequestAuthorization != null)
                 {
-                    webClient.Headers[HttpRequestHeader.Authorization] = UpdateRequestOption.RequestAuthorization.ToString();
+                    webClient.Headers[HttpRequestHeader.Authorization] = UpdateContext.RequestAuthorization.ToString();
                 }
 
-                webClient.Headers[HttpRequestHeader.UserAgent] = UpdateRequestOption.HttpUserAgent;
+                webClient.Headers[HttpRequestHeader.UserAgent] = UpdateContext.HttpUserAgent;
             }
 
             try
@@ -92,15 +88,15 @@ namespace DotNetAutoUpdater
                     {
                         Uri = uri,
                         Message = ConstResources.UpdateXmlFileEmpty,
-                        UpdateRequestOption = this.UpdateRequestOption
+                        UpdateContext = UpdateContext
                     });
                     return false;
                 }
-                _updateOption = UpdateOption.LoadUpdateOption(xmlFile);
+                UpdateContext.UpdateOption = UpdateContext.UpdateOptionHandler.ParseUpdateOption(xmlFile);
 
-                _updateOption.InstalledVersion = Assembly.GetEntryAssembly().GetName().Version;
+                UpdateContext.UpdateOption.InstalledVersion = Assembly.GetEntryAssembly().GetName().Version;
 
-                _updateOption.IsUpdateAvailable = _updateOption.UpdateVersion > _updateOption.InstalledVersion;
+                UpdateContext.UpdateOption.IsUpdateAvailable = UpdateContext.UpdateOption.UpdateVersion > UpdateContext.UpdateOption.InstalledVersion;
             }
             catch (WebException)
             {
@@ -108,7 +104,7 @@ namespace DotNetAutoUpdater
                 {
                     Uri = uri,
                     Message = ConstResources.UpdateXmlFileNotFound,
-                    UpdateRequestOption = this.UpdateRequestOption
+                    UpdateContext = UpdateContext
                 });
                 return false;
             }
@@ -118,7 +114,7 @@ namespace DotNetAutoUpdater
                 {
                     Uri = uri,
                     Message = ConstResources.UpdateXmlFileEmpty,
-                    UpdateRequestOption = this.UpdateRequestOption
+                    UpdateContext = UpdateContext
                 });
                 return false;
             }
@@ -127,15 +123,15 @@ namespace DotNetAutoUpdater
 
         private void StartUpdate()
         {
-            if (!_updateOption.IsUpdateAvailable) return;
+            if (!UpdateContext.UpdateOption.IsUpdateAvailable) return;
 
-            if (_updateOption.UpdateMode != UpdateMode.Force)
+            if (UpdateContext.UpdateOption.UpdateMode != UpdateMode.Force)
             {
-                var confirm = new ConfirmDiaglog(_updateOption);
+                var confirm = new ConfirmDiaglog(UpdateContext.UpdateOption);
                 if (confirm.ShowDialog() == System.Windows.Forms.DialogResult.Cancel) return;
             }
 
-            var download = new DownloadDiaglog(_updateOption);
+            var download = new DownloadDiaglog(UpdateContext.UpdateOption);
             if (download.ShowDialog() == System.Windows.Forms.DialogResult.Cancel) return;
 
             ExecUpdateApp();
@@ -143,12 +139,12 @@ namespace DotNetAutoUpdater
 
         private void ExecUpdateApp()
         {
-            var updaterExe = Path.Combine(ConstResources.TempFolder, ConstResources.UpdateToolName);
+            var updaterExe = Path.Combine(AutoUpdate.UpdateContext.TempFolderPath, AutoUpdate.UpdateContext.UpdateToolName);
             File.WriteAllBytes(updaterExe, Resources.DotNetAutoUpdater);
 
             var arguments = new StringBuilder();
             arguments.Append($"/pid {Process.GetCurrentProcess().Id} ");
-            arguments.Append($"/app \"{System.Windows.Forms.Application.ExecutablePath}\" ");
+            arguments.Append($"/app \"{Process.GetCurrentProcess().MainModule.FileName}\" ");
 
             var processInfo = new ProcessStartInfo(updaterExe, arguments.ToString())
             {

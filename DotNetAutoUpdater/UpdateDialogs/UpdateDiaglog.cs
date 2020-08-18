@@ -73,7 +73,7 @@ namespace DotNetAutoUpdater.UpdateDialogs
 
         private void BackupUpdate(string appFolder)
         {
-            var backFolder = ConstResources.BackupFolder;
+            var backFolder = AutoUpdate.UpdateContext.GetBackupFolderFullPath();
             if (!Directory.Exists(backFolder)) Directory.CreateDirectory(backFolder);
 
             try
@@ -98,7 +98,7 @@ namespace DotNetAutoUpdater.UpdateDialogs
                 foreach (var item in _updateToolOption.UpdateOption.UpdateItems)
                 {
                     var appPath = Path.Combine(appFolder, item.Path);
-                    var updatePath = Path.Combine(ConstResources.UpdateFolder, item.Path);
+                    var updatePath = Path.Combine(AutoUpdate.UpdateContext.GetDownloadFolderFullPath(), item.Path);
                     var fileInfo = new FileInfo(appPath);
 
                     if (!Directory.Exists(fileInfo.DirectoryName)) Directory.CreateDirectory(fileInfo.DirectoryName);
@@ -114,12 +114,12 @@ namespace DotNetAutoUpdater.UpdateDialogs
 
         private void Clear()
         {
-            if (Directory.Exists(ConstResources.BackupFolder)) Directory.Delete(ConstResources.BackupFolder, true);
-            if (Directory.Exists(ConstResources.UpdateFolder)) Directory.Delete(ConstResources.UpdateFolder, true);
-            if (File.Exists(Path.Combine(ConstResources.TempFolder, ConstResources.TempUpdateOption)))
-                File.Delete(Path.Combine(ConstResources.TempFolder, ConstResources.TempUpdateOption));
+            if (Directory.Exists(AutoUpdate.UpdateContext.GetBackupFolderFullPath())) Directory.Delete(AutoUpdate.UpdateContext.GetBackupFolderFullPath(), true);
+            if (Directory.Exists(AutoUpdate.UpdateContext.GetDownloadFolderFullPath())) Directory.Delete(AutoUpdate.UpdateContext.GetDownloadFolderFullPath(), true);
+            if (File.Exists(Path.Combine(AutoUpdate.UpdateContext.TempFolderPath, AutoUpdate.UpdateContext.TempUpdateOption)))
+                File.Delete(Path.Combine(AutoUpdate.UpdateContext.TempFolderPath, AutoUpdate.UpdateContext.TempUpdateOption));
 
-            var psi = new ProcessStartInfo("cmd.exe", $"/C ping 1.1.1.1 -n 1 -w 1000 > Nul & Del {Path.Combine(ConstResources.TempFolder, ConstResources.UpdateToolName)}");
+            var psi = new ProcessStartInfo("cmd.exe", $"/C ping 1.1.1.1 -n 1 -w 1000 > Nul & Del {Path.Combine(AutoUpdate.UpdateContext.TempFolderPath, AutoUpdate.UpdateContext.UpdateToolName)}");
             psi.WindowStyle = ProcessWindowStyle.Hidden;
             psi.CreateNoWindow = true;
             Process.Start(psi);

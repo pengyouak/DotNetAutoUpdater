@@ -66,7 +66,7 @@ namespace DotNetAutoUpdater.UpdateDialogs
 
         private void BeginDownload()
         {
-            var tempFolder = ConstResources.UpdateFolder;
+            var tempFolder = AutoUpdate.UpdateContext.GetDownloadFolderFullPath();
             // template folder
             if (Directory.Exists(tempFolder))
                 Directory.Delete(tempFolder, true);
@@ -107,6 +107,10 @@ namespace DotNetAutoUpdater.UpdateDialogs
                     };
                     downloadClient.DownloadFileCompleted += (sender, e) =>
                     {
+                        if (e.Cancelled) return;
+
+                        if (e.Error != null) throw e.Error;
+
                         lblCurDownload.UpdateUI(() =>
                         {
                             lblCurDownload.Text = ConstResources.LabelTextDownloadCurProcessFinished;
@@ -122,8 +126,6 @@ namespace DotNetAutoUpdater.UpdateDialogs
 
                     downloadClient.DownloadFileAsync(new Uri(_updateOption.ServerUrl + item.Path),
                        Path.Combine(tempFolder, item.Path));
-                    //downloadClient.DownloadFileAsync(new Uri("http://101.201.142.93:18080/DotNetAutoUpdaterTest/"),
-                    //    Path.Combine(tempFolder, "auto-update.xml"));
 
                     evtPerDonwload.WaitOne();
 
@@ -137,7 +139,7 @@ namespace DotNetAutoUpdater.UpdateDialogs
                 index++;
             }
 
-            UpdateOption.SaveUpdateOption(_updateOption, Path.Combine(ConstResources.TempFolder, ConstResources.TempUpdateOption));
+            XmlSerializerHelper.XmlSerializeObject(_updateOption, Path.Combine(AutoUpdate.UpdateContext.TempFolderPath, AutoUpdate.UpdateContext.TempUpdateOption));
 
             DialogResult = DialogResult.OK;
         }
