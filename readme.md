@@ -1,6 +1,13 @@
 ﻿### 自动更新组件
 
 ---
+#### 截图
+
+![image](https://s1.ax1x.com/2020/08/18/dKWSE9.png)
+
+![image](https://s1.ax1x.com/2020/08/18/dKfCZQ.png)
+
+![image](https://s1.ax1x.com/2020/08/18/dKWBvT.png)
 
 #### XML 配置
 
