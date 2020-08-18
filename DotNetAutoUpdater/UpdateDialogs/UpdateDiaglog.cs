@@ -9,10 +9,10 @@ namespace DotNetAutoUpdater.UpdateDialogs
 {
     public partial class UpdateDiaglog : Form
     {
-        private AppUpdateInfoArgs _appUpdateInfoArgs;
+        private AppUpdateArgs _appUpdateInfoArgs;
         private UpdateOption _updateOption;
 
-        internal UpdateDiaglog(AppUpdateInfoArgs appUpdateInfoArgs, UpdateOption updateOption)
+        internal UpdateDiaglog(AppUpdateArgs appUpdateInfoArgs, UpdateOption updateOption)
         {
             InitializeComponent();
             _appUpdateInfoArgs = appUpdateInfoArgs;

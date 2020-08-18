@@ -68,7 +68,7 @@ namespace DotNetAutoUpdater.UpdateDialogs
 
         private void BeginDownload()
         {
-            var tempFolder = _updateContext.AppUpdateInfoArgs.GetDownloadFolderFullPath();
+            var tempFolder = _updateContext.AppUpdateArgs.GetDownloadFolderFullPath();
             // template folder
             if (Directory.Exists(tempFolder))
                 Directory.Delete(tempFolder, true);
@@ -142,7 +142,7 @@ namespace DotNetAutoUpdater.UpdateDialogs
             }
 
             XmlSerializerHelper.XmlSerializeObject(_updateContext.UpdateOption,
-                Path.Combine(_updateContext.AppUpdateInfoArgs.TempFolderPath, _updateContext.AppUpdateInfoArgs.TempUpdateOption));
+                Path.Combine(_updateContext.AppUpdateArgs.TempFolderPath, _updateContext.AppUpdateArgs.TempUpdateOption));
 
             DialogResult = DialogResult.OK;
 

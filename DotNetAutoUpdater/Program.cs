@@ -16,7 +16,8 @@ namespace DotNetAutoUpdater
 
             if (args.Length == 0) return;
 
-            var option = new AppUpdateInfoArgs();
+            int pid = 0;
+            string appFullName = "";
             int index = 0;
             while (index < args.Length)
             {
@@ -26,15 +27,29 @@ namespace DotNetAutoUpdater
                 {
                     case "-p":
                     case "/pid":
-                        option.PID = int.Parse(args[index++]);
+                        pid = int.Parse(args[index++]);
                         break;
 
                     case "-a":
                     case "/app":
-                        option.APPFullName = args[index++];
+                        appFullName = args[index++];
                         break;
                 }
             }
+
+            if (pid <= 0 && string.IsNullOrEmpty(appFullName))
+            {
+                MessageBox.Show(
+                       ConstResources.UpdateInvalidArgsMessage,
+                       ConstResources.UpdateNullUpdateOptionTitle,
+                       MessageBoxButtons.OK,
+                       MessageBoxIcon.Error);
+                return;
+            }
+
+            var fileName = Path.GetFileName(appFullName);
+
+            var option = new AppUpdateArgs(pid, fileName, appFullName);
 
             var items = XmlSerializerHelper.XmlDeSerializeObject<UpdateOption>(
                 File.ReadAllText(Path.Combine(option.TempFolderPath, option.TempUpdateOption)));

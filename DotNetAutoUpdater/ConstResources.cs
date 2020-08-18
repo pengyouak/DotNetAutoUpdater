@@ -29,6 +29,10 @@ namespace DotNetAutoUpdater
                 {"zh-CN","获取更新文件缓存失败" }
             });
 
+        public static readonly string UpdateInvalidArgsMessage = GetText(Lang, new Dictionary<string, string> {
+                {"zh-CN","启动参数错误" }
+            });
+
         #endregion message
 
         #region control

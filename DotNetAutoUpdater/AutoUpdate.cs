@@ -139,7 +139,7 @@ namespace DotNetAutoUpdater
             if (UpdateContext.UpdateStartInfoProvider == null)
                 return;
 
-            var processInfo = UpdateContext.UpdateStartInfoProvider.ParseStartInfo(UpdateContext.AppUpdateInfoArgs);
+            var processInfo = UpdateContext.UpdateStartInfoProvider.ParseStartInfo(UpdateContext.AppUpdateArgs);
             Process.Start(processInfo);
         }
     }

@@ -58,7 +58,7 @@
     <Compile Include="IPersistenceProvider.cs" />
     <Compile Include="IUpdateOptionProvider.cs" />
     <Compile Include="IUpdateStartInfoProvider.cs" />
-    <Compile Include="AppUpdateInfoArgs.cs" />
+    <Compile Include="AppUpdateArgs.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Properties\Resources.Designer.cs">

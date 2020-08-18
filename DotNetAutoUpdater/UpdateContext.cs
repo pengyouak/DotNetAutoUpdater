@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Diagnostics;
 using System.Net;
 
 namespace DotNetAutoUpdater
@@ -23,7 +24,7 @@ namespace DotNetAutoUpdater
 
         #region properties
 
-        public AppUpdateInfoArgs AppUpdateInfoArgs { get; set; }
+        public AppUpdateArgs AppUpdateArgs { get; set; }
 
         public bool Synchronous { get; set; }
 
@@ -40,7 +41,8 @@ namespace DotNetAutoUpdater
             UpdateOptionProvider = new XmlUpdateOptionProvider();
             UpdateStartInfoProvider = new DefaultUpdateStartInfoProvider();
 
-            AppUpdateInfoArgs = new AppUpdateInfoArgs();
+            var p = Process.GetCurrentProcess();
+            AppUpdateArgs = new AppUpdateArgs(p.Id, p.ProcessName, p.MainModule.FileName);
         }
 
         #endregion constructors

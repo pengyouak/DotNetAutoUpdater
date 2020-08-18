@@ -3,7 +3,7 @@ using System.IO;
 
 namespace DotNetAutoUpdater
 {
-    public class AppUpdateInfoArgs
+    public class AppUpdateArgs
     {
         public string TempFolderPath { get; set; } = Path.Combine(Path.GetTempPath(), "DotNetAutoUpdater");
 
@@ -17,11 +17,11 @@ namespace DotNetAutoUpdater
 
         public string UpdateToolName { get; set; } = "DotNetAutoUpdater.exe";
 
-        public string APPFullName { get; set; }
+        public string APPFullName { get; private set; }
 
-        public string AppName { get; set; }
+        public string AppName { get; private set; }
 
-        public int PID { get; set; }
+        public int PID { get; private set; }
 
         #region public methods
 
@@ -30,5 +30,16 @@ namespace DotNetAutoUpdater
         public string GetBackupFolderFullPath() => Path.Combine(TempFolderPath, BackupFolderName);
 
         #endregion public methods
+
+        #region constructor
+
+        public AppUpdateArgs(int pid, string appname, string fullname)
+        {
+            PID = pid;
+            APPFullName = appname;
+            AppName = fullname;
+        }
+
+        #endregion constructor
     }
 }

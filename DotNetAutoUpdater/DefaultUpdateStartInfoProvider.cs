@@ -8,7 +8,7 @@ namespace DotNetAutoUpdater
 {
     internal class DefaultUpdateStartInfoProvider : IUpdateStartInfoProvider
     {
-        public ProcessStartInfo ParseStartInfo(AppUpdateInfoArgs args)
+        public ProcessStartInfo ParseStartInfo(AppUpdateArgs args)
         {
             var arguments = Environment.GetCommandLineArgs().ToList();
             arguments.Add("/pid");
