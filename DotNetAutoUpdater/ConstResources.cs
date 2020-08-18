@@ -30,7 +30,7 @@ namespace DotNetAutoUpdater
             });
 
         public static readonly string UpdateInvalidArgsMessage = GetText(Lang, new Dictionary<string, string> {
-                {"zh-CN","启动参数错误" }
+                {"zh-CN","启动参数错误, 请确保包含一下两个参数: \n进程PID: /pid\n应用程序完整路径: /app" }
             });
 
         #endregion message

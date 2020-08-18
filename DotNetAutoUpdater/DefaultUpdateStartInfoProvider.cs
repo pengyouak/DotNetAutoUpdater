@@ -12,9 +12,9 @@ namespace DotNetAutoUpdater
         {
             var arguments = Environment.GetCommandLineArgs().ToList();
             arguments.Add("/pid");
-            arguments.Add(Process.GetCurrentProcess().Id.ToString());
+            arguments.Add(args.PID.ToString());
             arguments.Add("/app");
-            arguments.Add($"\"{Process.GetCurrentProcess().MainModule.FileName}\"");
+            arguments.Add($"\"{args.APPFullName}\"");
 
             var updaterExe = Path.Combine(args.TempFolderPath, args.UpdateToolName);
             File.WriteAllBytes(updaterExe, Resources.DotNetAutoUpdater);

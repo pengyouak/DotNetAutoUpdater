@@ -39,12 +39,7 @@ namespace DotNetAutoUpdater
 
             if (pid <= 0 && string.IsNullOrEmpty(appFullName))
             {
-                MessageBox.Show(
-                       ConstResources.UpdateInvalidArgsMessage,
-                       ConstResources.UpdateNullUpdateOptionTitle,
-                       MessageBoxButtons.OK,
-                       MessageBoxIcon.Error);
-                return;
+                throw new ArgumentNullException(string.Join(" ", args), ConstResources.UpdateInvalidArgsMessage);
             }
 
             var fileName = Path.GetFileName(appFullName);
