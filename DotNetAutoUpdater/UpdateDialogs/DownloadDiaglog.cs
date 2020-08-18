@@ -16,7 +16,8 @@ namespace DotNetAutoUpdater.UpdateDialogs
         {
             InitializeComponent();
             _updateContext = updateContext;
-            _synchronizationContext = SynchronizationContext.Current; ;
+            _synchronizationContext = SynchronizationContext.Current;
+            this.Size = this.MinimumSize;
         }
 
         private void btnShowList_Click(object sender, EventArgs e)
@@ -50,7 +51,6 @@ namespace DotNetAutoUpdater.UpdateDialogs
                 new ColumnHeader(){Name = "ver", Width = 100, Text = ConstResources.ViewColTextDownloadUpdateVer},
                 new ColumnHeader(){Name = "msg", Width = 290, Text = ConstResources.ViewColTextDownloadChangeLog},
             });
-            this.Size = this.MinimumSize;
 
             LoadUpdateItem();
 

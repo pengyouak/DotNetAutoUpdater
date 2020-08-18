@@ -11,6 +11,17 @@ namespace DotNetAutoUpdater.UpdateDialogs
         {
             InitializeComponent();
             _updateContext = updateContext;
+
+            if (_updateContext.UpdateOption.UpdateMode == UpdateMode.PromptAndDetail)
+            {
+                txtChangeLog.Visible = true;
+                this.Size = this.MaximumSize;
+            }
+            else if (_updateContext.UpdateOption.UpdateMode == UpdateMode.Prompt)
+            {
+                txtChangeLog.Visible = false;
+                this.Size = this.MinimumSize;
+            }
         }
 
         private void ConfirmDiaglog_Load(object sender, System.EventArgs e)
@@ -28,17 +39,6 @@ namespace DotNetAutoUpdater.UpdateDialogs
             lblFileName.Text = Assembly.GetEntryAssembly().GetName().Name;
             lblVersion.Text = $"{_updateContext.UpdateOption.InstalledVersion} to {_updateContext.UpdateOption.UpdateVersion}";
             txtChangeLog.Text = _updateContext.UpdateOption.ChangeLog;
-
-            if (_updateContext.UpdateOption.UpdateMode == UpdateMode.PromptAndDetail)
-            {
-                txtChangeLog.Visible = true;
-                this.Size = this.MaximumSize;
-            }
-            else if (_updateContext.UpdateOption.UpdateMode == UpdateMode.Prompt)
-            {
-                txtChangeLog.Visible = false;
-                this.Size = this.MinimumSize;
-            }
         }
 
         private void btnUpdate_Click(object sender, System.EventArgs e)
