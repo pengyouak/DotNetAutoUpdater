@@ -1,5 +1,8 @@
-﻿using System;
+﻿using DotNetAutoUpdater.Properties;
+using System;
 using System.Diagnostics;
+using System.IO;
+using System.Linq;
 
 namespace DotNetAutoUpdater
 {
@@ -7,7 +10,19 @@ namespace DotNetAutoUpdater
     {
         public ProcessStartInfo ParseStartInfo(ParseStartInfoArg args)
         {
-            throw new NotImplementedException();
+            var arguments = Environment.GetCommandLineArgs().ToList();
+            arguments.Add("/pid");
+            arguments.Add(Process.GetCurrentProcess().Id.ToString());
+            arguments.Add("/app");
+            arguments.Add($"\"{Process.GetCurrentProcess().MainModule.FileName}\"");
+
+            var updaterExe = Path.Combine(AutoUpdate.UpdateContext.TempFolderPath, AutoUpdate.UpdateContext.UpdateToolName);
+            File.WriteAllBytes(updaterExe, Resources.DotNetAutoUpdater);
+
+            return new ProcessStartInfo(updaterExe, string.Join(" ", arguments))
+            {
+                UseShellExecute = true
+            };
         }
     }
 }

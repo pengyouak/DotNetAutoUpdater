@@ -42,6 +42,8 @@
             this.panel4 = new System.Windows.Forms.Panel();
             this.lblVersion = new System.Windows.Forms.Label();
             this.lblFileName = new System.Windows.Forms.Label();
+            this.btnSkip = new System.Windows.Forms.Button();
+            this.btnRemaindLater = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.panel1.SuspendLayout();
             this.panel2.SuspendLayout();
@@ -58,10 +60,10 @@
             // 
             // panel1
             // 
-            resources.ApplyResources(this.panel1, "panel1");
             this.panel1.Controls.Add(this.lblSubTitle);
             this.panel1.Controls.Add(this.lblTitle);
             this.panel1.Controls.Add(this.pictureBox1);
+            resources.ApplyResources(this.panel1, "panel1");
             this.panel1.Name = "panel1";
             // 
             // lblSubTitle
@@ -76,9 +78,11 @@
             // 
             // panel2
             // 
-            resources.ApplyResources(this.panel2, "panel2");
+            this.panel2.Controls.Add(this.btnRemaindLater);
+            this.panel2.Controls.Add(this.btnSkip);
             this.panel2.Controls.Add(this.btnUpdate);
             this.panel2.Controls.Add(this.btnCancel);
+            resources.ApplyResources(this.panel2, "panel2");
             this.panel2.Name = "panel2";
             // 
             // btnUpdate
@@ -97,32 +101,32 @@
             // 
             // panel3
             // 
-            resources.ApplyResources(this.panel3, "panel3");
             this.panel3.Controls.Add(this.panel5);
             this.panel3.Controls.Add(this.panel4);
+            resources.ApplyResources(this.panel3, "panel3");
             this.panel3.Name = "panel3";
             // 
             // panel5
             // 
-            resources.ApplyResources(this.panel5, "panel5");
             this.panel5.BackColor = System.Drawing.Color.White;
             this.panel5.Controls.Add(this.txtChangeLog);
+            resources.ApplyResources(this.panel5, "panel5");
             this.panel5.Name = "panel5";
             // 
             // txtChangeLog
             // 
-            resources.ApplyResources(this.txtChangeLog, "txtChangeLog");
             this.txtChangeLog.BackColor = System.Drawing.Color.White;
             this.txtChangeLog.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            resources.ApplyResources(this.txtChangeLog, "txtChangeLog");
             this.txtChangeLog.Name = "txtChangeLog";
             this.txtChangeLog.ReadOnly = true;
             // 
             // panel4
             // 
-            resources.ApplyResources(this.panel4, "panel4");
             this.panel4.BackColor = System.Drawing.Color.White;
             this.panel4.Controls.Add(this.lblVersion);
             this.panel4.Controls.Add(this.lblFileName);
+            resources.ApplyResources(this.panel4, "panel4");
             this.panel4.Name = "panel4";
             // 
             // lblVersion
@@ -134,6 +138,18 @@
             // 
             resources.ApplyResources(this.lblFileName, "lblFileName");
             this.lblFileName.Name = "lblFileName";
+            // 
+            // btnSkip
+            // 
+            resources.ApplyResources(this.btnSkip, "btnSkip");
+            this.btnSkip.Name = "btnSkip";
+            this.btnSkip.UseVisualStyleBackColor = true;
+            // 
+            // btnRemaindLater
+            // 
+            resources.ApplyResources(this.btnRemaindLater, "btnRemaindLater");
+            this.btnRemaindLater.Name = "btnRemaindLater";
+            this.btnRemaindLater.UseVisualStyleBackColor = true;
             // 
             // ConfirmDiaglog
             // 
@@ -175,5 +191,7 @@
         private System.Windows.Forms.Label lblVersion;
         private System.Windows.Forms.Label lblFileName;
         private System.Windows.Forms.RichTextBox txtChangeLog;
+        private System.Windows.Forms.Button btnRemaindLater;
+        private System.Windows.Forms.Button btnSkip;
     }
 }

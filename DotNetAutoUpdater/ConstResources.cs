@@ -123,6 +123,14 @@ namespace DotNetAutoUpdater
                 {"zh-cn", "取消" }
             });
 
+        public static readonly string ButtonTextConfirmRemaind = GetText(Lang, new Dictionary<string, string> {
+                {"zh-cn", "稍后提醒" }
+            });
+
+        public static readonly string ButtonTextConfirmSkip = GetText(Lang, new Dictionary<string, string> {
+                {"zh-cn", "跳过此版本" }
+            });
+
         #endregion confirm diaglog
 
         #endregion control

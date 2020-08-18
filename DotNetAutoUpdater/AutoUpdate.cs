@@ -1,12 +1,9 @@
-﻿using DotNetAutoUpdater.Properties;
-using DotNetAutoUpdater.UpdateDialogs;
+﻿using DotNetAutoUpdater.UpdateDialogs;
 using System;
 using System.Diagnostics;
-using System.IO;
 using System.Net;
 using System.Net.Cache;
 using System.Reflection;
-using System.Text;
 
 namespace DotNetAutoUpdater
 {
@@ -131,7 +128,7 @@ namespace DotNetAutoUpdater
                 if (confirm.ShowDialog() == System.Windows.Forms.DialogResult.Cancel) return;
             }
 
-            var download = new DownloadDiaglog(UpdateContext.UpdateOption);
+            var download = new DownloadDiaglog();
             if (download.ShowDialog() == System.Windows.Forms.DialogResult.Cancel) return;
 
             ExecUpdateApp();
@@ -139,17 +136,14 @@ namespace DotNetAutoUpdater
 
         private void ExecUpdateApp()
         {
-            var updaterExe = Path.Combine(AutoUpdate.UpdateContext.TempFolderPath, AutoUpdate.UpdateContext.UpdateToolName);
-            File.WriteAllBytes(updaterExe, Resources.DotNetAutoUpdater);
-
-            var arguments = new StringBuilder();
-            arguments.Append($"/pid {Process.GetCurrentProcess().Id} ");
-            arguments.Append($"/app \"{Process.GetCurrentProcess().MainModule.FileName}\" ");
-
-            var processInfo = new ProcessStartInfo(updaterExe, arguments.ToString())
+            var processInfo = UpdateContext.UpdateStartInfoHandler.ParseStartInfo(new ParseStartInfoArg
             {
-                UseShellExecute = true
-            };
+                DownloadFolderPath = UpdateContext.GetDownloadFolderFullPath(),
+                BackupFolderPath = UpdateContext.GetBackupFolderFullPath(),
+                InstallFolderPath = UpdateContext.InstallFolderPath,
+                UpdateToolName = UpdateContext.UpdateToolName,
+                TempUpdateOption = UpdateContext.TempUpdateOption
+            });
             Process.Start(processInfo);
         }
     }

@@ -11,7 +11,5 @@
         public string TempUpdateOption { get; set; }
 
         public string UpdateToolName { get; set; }
-
-        public string[] CommandLineArgs { get; set; }
     }
 }

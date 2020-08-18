@@ -5,12 +5,9 @@ namespace DotNetAutoUpdater.UpdateDialogs
 {
     public partial class ConfirmDiaglog : Form
     {
-        private UpdateOption _updateOption;
-
         public ConfirmDiaglog(UpdateOption updateOption)
         {
             InitializeComponent();
-            _updateOption = updateOption;
         }
 
         private void ConfirmDiaglog_Load(object sender, System.EventArgs e)
@@ -22,17 +19,19 @@ namespace DotNetAutoUpdater.UpdateDialogs
 
             btnUpdate.Text = ConstResources.ButtonTextConfirmUpdate;
             btnCancel.Text = ConstResources.ButtonTextConfirmCancel;
+            btnRemaindLater.Text = ConstResources.ButtonTextConfirmRemaind;
+            btnSkip.Text = ConstResources.ButtonTextConfirmSkip;
 
             lblFileName.Text = Assembly.GetEntryAssembly().GetName().Name;
-            lblVersion.Text = $"{_updateOption.InstalledVersion} to {_updateOption.UpdateVersion}";
-            txtChangeLog.Text = _updateOption.ChangeLog;
+            lblVersion.Text = $"{AutoUpdate.UpdateContext.UpdateOption.InstalledVersion} to {AutoUpdate.UpdateContext.UpdateOption.UpdateVersion}";
+            txtChangeLog.Text = AutoUpdate.UpdateContext.UpdateOption.ChangeLog;
 
-            if (_updateOption.UpdateMode == UpdateMode.PromptAndDetail)
+            if (AutoUpdate.UpdateContext.UpdateOption.UpdateMode == UpdateMode.PromptAndDetail)
             {
                 txtChangeLog.Visible = true;
                 this.Size = this.MaximumSize;
             }
-            else if (_updateOption.UpdateMode == UpdateMode.Prompt)
+            else if (AutoUpdate.UpdateContext.UpdateOption.UpdateMode == UpdateMode.Prompt)
             {
                 txtChangeLog.Visible = false;
                 this.Size = this.MinimumSize;

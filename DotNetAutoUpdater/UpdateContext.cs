@@ -38,6 +38,8 @@ namespace DotNetAutoUpdater
 
         public string APPFullName { get; set; }
 
+        public int PID { get; set; }
+
         public bool Synchronous { get; set; }
 
         public Uri UpdateUri { get; set; }
