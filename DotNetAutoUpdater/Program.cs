@@ -12,7 +12,7 @@ namespace DotNetAutoUpdater
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
 
-            System.IO.File.WriteAllText("args.txt", string.Join(" ", args));
+            File.WriteAllText("args.txt", string.Join(" ", args));
 
             if (args.Length == 0) return;
 
@@ -24,17 +24,19 @@ namespace DotNetAutoUpdater
 
                 switch (name)
                 {
+                    case "-p":
                     case "/pid":
                         option.PID = int.Parse(args[index++]);
                         break;
 
+                    case "-a":
                     case "/app":
                         option.AppFullPath = args[index++];
                         break;
                 }
             }
 
-            option.UpdateOption = XmlSerializerHelper.XmlDeSerializeObject<UpdateOption>(System.IO.File.ReadAllText(Path.Combine(AutoUpdate.UpdateContext.TempFolderPath, AutoUpdate.UpdateContext.TempUpdateOption)));
+            option.UpdateOption = XmlSerializerHelper.XmlDeSerializeObject<UpdateOption>(File.ReadAllText(Path.Combine(AutoUpdate.UpdateContext.TempFolderPath, AutoUpdate.UpdateContext.TempUpdateOption)));
 
             if (option.UpdateOption == null) return;
 
