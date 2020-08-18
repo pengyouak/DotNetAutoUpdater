@@ -1,17 +1,16 @@
-﻿using DotNetAutoUpdater;
-using System;
+﻿using System;
+using System.Windows.Forms;
 
 namespace DotNetAutoUpdaterTest
 {
     internal class Program
     {
+        [STAThread]
         private static void Main(string[] args)
         {
-            Console.ReadKey();
-
-            new AutoUpdate().Update("http://101.201.142.93:18080/DotNetAutoUpdaterTest/update.xml");
-
-            Console.ReadKey();
+            Application.EnableVisualStyles();
+            Application.SetCompatibleTextRenderingDefault(false);
+            Application.Run(new Form1());
         }
     }
 }
