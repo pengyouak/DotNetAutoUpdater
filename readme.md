@@ -33,9 +33,10 @@
 </UpdateOption>
 ```
 
-- Prompt: 提示更新
-- PromptAndDetail: 提示并显示更新详情
-- Force: 强制更新
+UpdateMode
+- 0: 提示更新
+- 1: 提示并显示更新详情
+- 2: 强制更新
 
 #### 使用
 
