@@ -5,9 +5,9 @@
 
 ![image](https://s1.ax1x.com/2020/08/18/dKWSE9.png)
 
-![image](https://s1.ax1x.com/2020/08/18/dKfCZQ.png)
+![image](https://s1.ax1x.com/2020/08/19/dQEfdf.png)
 
-![image](https://s1.ax1x.com/2020/08/18/dKWBvT.png)
+![image](https://s1.ax1x.com/2020/08/19/dQE5FS.png)
 
 #### XML 配置
 
@@ -16,25 +16,17 @@
 <UpdateOption xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
   <Version>1.1.1.1</Version>
   <ServerUrl>http://xxx.xxx.xxx/</ServerUrl>
-  <UpdateMode>Force</UpdateMode>
+  <UpdateMode>2</UpdateMode>
   <ChangeLog></ChangeLog>
   <UpdateItems>
     <UpdateItem>
-      <UpdateDate>0001-01-01T00:00:00</UpdateDate>
-      <MinVersion>0.0.0.0</MinVersion>
       <Version>1.0.0.0</Version>
       <Path>DotNetAutoUpdater.dll</Path>
-      <ValideMode>Version</ValideMode>
-      <Required>false</Required>
     </UpdateItem>
     </UpdateItem>
     <UpdateItem>
-      <UpdateDate>0001-01-01T00:00:00</UpdateDate>
-      <MinVersion>0.0.0.0</MinVersion>
       <Version>1.0.0.0</Version>
       <Path>b/DotNetAutoUpdaterTest.exe</Path>
-      <ValideMode>Version</ValideMode>
-      <Required>false</Required>
     </UpdateItem>
     </UpdateItem>
   </UpdateItems>
