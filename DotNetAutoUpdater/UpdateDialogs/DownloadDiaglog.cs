@@ -46,6 +46,8 @@ namespace DotNetAutoUpdater.UpdateDialogs
             lblCurDownload.Text = ConstResources.LabelTextDownloadCurProcess;
             lblTotalDownload.Text = ConstResources.LabelTextDownloadTotalProcess;
 
+            lblFileName.Text = _updateContext.AppUpdateArgs.AppName;
+
             lsvUpdateItems.Columns.AddRange(new ColumnHeader[] {
                 new ColumnHeader(){Name = "fileName", Width = 124, Text = ConstResources.ViewColTextDownloadFileName},
                 new ColumnHeader(){Name = "ver", Width = 100, Text = ConstResources.ViewColTextDownloadUpdateVer},
@@ -103,8 +105,8 @@ namespace DotNetAutoUpdater.UpdateDialogs
                         // refresh total progress
                         progressBarTotal.UpdateUI(() =>
                         {
-                            var progress = 100 * ((index + e.ProgressPercentage / 100) / _updateContext.UpdateOption.UpdateItems.Count);
-                            progressBarTotal.Value = progress > progressBarTotal.Maximum ? progressBarTotal.Maximum : progress;
+                            var progress = 100 * ((index + (double)e.ProgressPercentage / 100) / _updateContext.UpdateOption.UpdateItems.Count);
+                            progressBarTotal.Value = progress > progressBarTotal.Maximum ? progressBarTotal.Maximum : (int)progress;
                         });
                     };
                     downloadClient.DownloadFileCompleted += (sender, e) =>
