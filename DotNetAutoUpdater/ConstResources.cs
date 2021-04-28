@@ -55,6 +55,22 @@ namespace DotNetAutoUpdater
                 {"zh-CN", "更新进度" }
             });
 
+        public static readonly string LabelTextUpdateBackup = GetText(Lang, new Dictionary<string, string> {
+                {"zh-CN", "正在备份需要更新的文件。" }
+            });
+
+        public static readonly string LabelTextUpdating = GetText(Lang, new Dictionary<string, string> {
+                {"zh-CN", "正在更新文件。" }
+            });
+
+        public static readonly string LabelTextUpdateRestore = GetText(Lang, new Dictionary<string, string> {
+                {"zh-CN", "正在回滚历史文件。" }
+            });
+
+        public static readonly string LabelTextUpdateCompleted = GetText(Lang, new Dictionary<string, string> {
+                {"zh-CN", "更新完成。" }
+            });
+
         public static readonly string ButtonTextUpdateCancel = GetText(Lang, new Dictionary<string, string> {
                 {"zh-CN", "取消" }
             });

@@ -18,7 +18,7 @@ namespace DotNetAutoUpdater
 
         public IUpdateOptionProvider UpdateOptionProvider;
 
-        public IUpdateStartInfoProvider UpdateStartInfoProvider;
+        public IExecUpdateProvider ExecUpdateProvider;
 
         #endregion fields
 
@@ -39,10 +39,18 @@ namespace DotNetAutoUpdater
         public UpdateContext()
         {
             UpdateOptionProvider = new XmlUpdateOptionProvider();
-            UpdateStartInfoProvider = new DefaultUpdateStartInfoProvider();
+            ExecUpdateProvider = new DefaultExecUpdateProvider();
 
             var p = Process.GetCurrentProcess();
             AppUpdateArgs = new AppUpdateArgs(p.Id, p.ProcessName, p.MainModule.FileName);
+        }
+
+        public UpdateContext(int pid, string processName, string fileName)
+        {
+            UpdateOptionProvider = new XmlUpdateOptionProvider();
+            //ExecUpdateProvider = new DefaultExecUpdateProvider();
+            ExecUpdateProvider = new ZipExecUpdateProvider();
+            AppUpdateArgs = new AppUpdateArgs(pid, processName, fileName);
         }
 
         #endregion constructors

@@ -1,9 +1,9 @@
 ﻿using DotNetAutoUpdater.UpdateDialogs;
 using System;
-using System.Diagnostics;
 using System.Net;
 using System.Net.Cache;
 using System.Reflection;
+using System.Windows.Forms;
 
 namespace DotNetAutoUpdater
 {
@@ -41,6 +41,17 @@ namespace DotNetAutoUpdater
         public void Update(string url)
         {
             UpdateContext = new UpdateContext();
+
+            UpdateContext.UpdateUri = new Uri(url);
+
+            if (!BindOption(UpdateContext.UpdateUri)) return;
+
+            StartUpdate();
+        }
+
+        public void Update(string url, int pid, string processName, string fileName)
+        {
+            UpdateContext = new UpdateContext(pid, processName, fileName);
 
             UpdateContext.UpdateUri = new Uri(url);
 
@@ -93,7 +104,8 @@ namespace DotNetAutoUpdater
 
                 UpdateContext.UpdateOption = UpdateContext.UpdateOptionProvider.ParseUpdateOption(xmlFile);
 
-                UpdateContext.UpdateOption.InstalledVersion = Assembly.GetEntryAssembly().GetName().Version;
+                UpdateContext.UpdateOption.InstalledVersion = GetAppVersion();
+                //UpdateContext.UpdateOption.InstalledVersion = Assembly.GetEntryAssembly().GetName().Version;
 
                 UpdateContext.UpdateOption.IsUpdateAvailable = UpdateContext.UpdateOption.UpdateVersion > UpdateContext.UpdateOption.InstalledVersion;
             }
@@ -118,6 +130,18 @@ namespace DotNetAutoUpdater
             return true;
         }
 
+        private Version GetAppVersion()
+        {
+            try
+            {
+                if (!System.IO.File.Exists(UpdateContext.AppUpdateArgs.APPFullName)) return new Version(0, 0, 0, 0);
+
+                var verInfo = System.Diagnostics.FileVersionInfo.GetVersionInfo(UpdateContext.AppUpdateArgs.APPFullName);
+                return new Version(verInfo.FileVersion);
+            }
+            catch { return new Version(0, 0, 0, 0); }
+        }
+
         private void StartUpdate()
         {
             if (!UpdateContext.UpdateOption.IsUpdateAvailable) return;
@@ -131,16 +155,22 @@ namespace DotNetAutoUpdater
             var download = new DownloadDiaglog(UpdateContext);
             if (download.ShowDialog() == System.Windows.Forms.DialogResult.Cancel) return;
 
-            ExecUpdateApp();
+            try
+            {
+                ExecUpdateApp();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("在更新时发生了异常，无法完成更新。" + ex.Message, "更新", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
         }
 
         private void ExecUpdateApp()
         {
-            if (UpdateContext.UpdateStartInfoProvider == null)
+            if (UpdateContext.ExecUpdateProvider == null)
                 return;
 
-            var processInfo = UpdateContext.UpdateStartInfoProvider.ParseStartInfo(UpdateContext.AppUpdateArgs);
-            Process.Start(processInfo);
+            UpdateContext.ExecUpdateProvider.ExecUpdate(UpdateContext.AppUpdateArgs);
         }
     }
 }

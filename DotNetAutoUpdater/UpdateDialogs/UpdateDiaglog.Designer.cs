@@ -140,11 +140,13 @@
             this.Controls.Add(this.panel4);
             this.Controls.Add(this.panel2);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MaximizeBox = false;
             this.MaximumSize = new System.Drawing.Size(559, 197);
             this.MinimizeBox = false;
             this.MinimumSize = new System.Drawing.Size(559, 197);
             this.Name = "UpdateDiaglog";
+            this.ShowInTaskbar = false;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "UpdateDiaglog";
             this.Load += new System.EventHandler(this.DownloadDiaglog_Load);

@@ -20,6 +20,14 @@ namespace DotNetAutoUpdaterTest
         private void btnCheckUpdate_Click(object sender, EventArgs e)
         {
             new AutoUpdate().Update("http://101.201.142.93:18080/DotNetAutoUpdaterTest/update.xml");
+
+            var updaterPath = "NetEaseHelper.AutoUpdater.exe";
+            if (System.IO.File.Exists(updaterPath))
+            {
+                string path = System.IO.Path.Combine(AppDomain.CurrentDomain.BaseDirectory, updaterPath);
+                var update = System.Diagnostics.Process.Start(path, $@"-u http://101.201.142.93:18080/DotNetAutoUpdaterTest/update.xml -p {System.Diagnostics.Process.GetCurrentProcess().Id} -a ""{System.Windows.Forms.Application.ExecutablePath}""");
+                update.WaitForExit();
+            }
         }
     }
 }

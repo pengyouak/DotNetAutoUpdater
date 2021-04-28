@@ -30,6 +30,8 @@ namespace DotNetAutoUpdater.UpdateDialogs
             lblProcess.Text = ConstResources.LabelTextUpdateTotalProcess;
 
             this.Size = this.MinimumSize;
+            progressBarTotal.Maximum = _updateOption.UpdateItems.Count;
+            progressBarTotal.Value = 0;
 
             new TaskFactory().StartNew((new Action(() => BeginUpdate())));
         }
@@ -47,7 +49,7 @@ namespace DotNetAutoUpdater.UpdateDialogs
             try
             {
                 var fileInfo = new FileInfo(_appUpdateInfoArgs.APPFullName);
-                BackupUpdate(fileInfo.DirectoryName);
+                BackupUpdate();
 
                 var processList = Process.GetProcesses();
                 foreach (var item in processList)
@@ -59,12 +61,17 @@ namespace DotNetAutoUpdater.UpdateDialogs
 
                 Thread.Sleep(500);
 
-                InstallUpdate(fileInfo.DirectoryName);
+                if (!InstallUpdate())
+                    RestoreUpdate();
 
                 Clear();
 
                 // 启动进程
                 Process.Start(_appUpdateInfoArgs.APPFullName);
+
+                lblProcess.UpdateUI(() => lblProcess.Text = ConstResources.LabelTextUpdateCompleted);
+
+                Thread.Sleep(500);
 
                 Finished();
             }
@@ -73,17 +80,22 @@ namespace DotNetAutoUpdater.UpdateDialogs
             }
         }
 
-        private void BackupUpdate(string appFolder)
+        private void BackupUpdate()
         {
+            var fileInfo = new FileInfo(_appUpdateInfoArgs.APPFullName);
             var backFolder = _appUpdateInfoArgs.GetBackupFolderFullPath();
             if (!Directory.Exists(backFolder)) Directory.CreateDirectory(backFolder);
+            lblProcess.UpdateUI(() => lblProcess.Text = ConstResources.LabelTextUpdateBackup);
 
             try
             {
                 foreach (var item in _updateOption.UpdateItems)
                 {
                     var backupPath = Path.Combine(backFolder, item.Path);
-                    var filePath = Path.Combine(appFolder, item.Path);
+                    var filePath = Path.Combine(fileInfo.DirectoryName, item.Path);
+
+                    var fi = new System.IO.FileInfo(backupPath);
+                    if (!fi.Directory.Exists) Directory.CreateDirectory(fi.Directory.FullName);
 
                     if (File.Exists(filePath)) File.Copy(filePath, backupPath, true);
                 }
@@ -91,27 +103,52 @@ namespace DotNetAutoUpdater.UpdateDialogs
             catch { }
         }
 
-        private void InstallUpdate(string appFolder)
+        private bool InstallUpdate()
         {
-            if (!Directory.Exists(appFolder)) return;
+            var fileInfo = new FileInfo(_appUpdateInfoArgs.APPFullName);
+            if (!Directory.Exists(fileInfo.DirectoryName)) return true;
+            lblProcess.UpdateUI(() => lblProcess.Text = ConstResources.LabelTextUpdating);
 
             try
             {
                 foreach (var item in _updateOption.UpdateItems)
                 {
-                    var appPath = Path.Combine(appFolder, item.Path);
+                    var appPath = Path.Combine(fileInfo.DirectoryName, item.Path);
                     var updatePath = Path.Combine(_appUpdateInfoArgs.GetDownloadFolderFullPath(), item.Path);
-                    var fileInfo = new FileInfo(appPath);
+                    var appFileInfo = new FileInfo(appPath);
 
-                    if (!Directory.Exists(fileInfo.DirectoryName)) Directory.CreateDirectory(fileInfo.DirectoryName);
+                    if (!Directory.Exists(appFileInfo.DirectoryName)) Directory.CreateDirectory(appFileInfo.DirectoryName);
 
                     File.Copy(updatePath, appPath, true);
+                    progressBarTotal.UpdateUI(() => progressBarTotal.Value += 1);
                 }
+                return true;
             }
             catch (Exception ex)
             {
                 MessageBox.Show(ex.Message);
+                return false;
             }
+        }
+
+        private void RestoreUpdate()
+        {
+            var fileInfo = new FileInfo(_appUpdateInfoArgs.APPFullName);
+            var backFolder = _appUpdateInfoArgs.GetBackupFolderFullPath();
+            lblProcess.UpdateUI(() => lblProcess.Text = ConstResources.LabelTextUpdateRestore);
+
+            try
+            {
+                foreach (var item in _updateOption.UpdateItems)
+                {
+                    var backupPath = Path.Combine(backFolder, item.Path);
+                    var filePath = Path.Combine(fileInfo.DirectoryName, item.Path);
+
+                    File.Copy(backupPath, filePath, true);
+                    progressBarTotal.UpdateUI(() => progressBarTotal.Value -= 1);
+                }
+            }
+            catch { }
         }
 
         private void Clear()

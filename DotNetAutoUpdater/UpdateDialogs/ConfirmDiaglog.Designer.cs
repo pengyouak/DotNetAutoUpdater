@@ -165,6 +165,7 @@
             this.MaximizeBox = false;
             this.MinimizeBox = false;
             this.Name = "ConfirmDiaglog";
+            this.ShowInTaskbar = false;
             this.Load += new System.EventHandler(this.ConfirmDiaglog_Load);
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.panel1.ResumeLayout(false);

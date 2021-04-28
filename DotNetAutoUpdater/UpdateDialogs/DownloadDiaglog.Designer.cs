@@ -44,7 +44,6 @@
             this.progressBarCurrent = new System.Windows.Forms.ProgressBar();
             this.lblTotalDownload = new System.Windows.Forms.Label();
             this.lblCurDownload = new System.Windows.Forms.Label();
-            this.lblVersion = new System.Windows.Forms.Label();
             this.lblFileName = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.panel1.SuspendLayout();
@@ -129,7 +128,6 @@
             this.panel4.Controls.Add(this.progressBarCurrent);
             this.panel4.Controls.Add(this.lblTotalDownload);
             this.panel4.Controls.Add(this.lblCurDownload);
-            this.panel4.Controls.Add(this.lblVersion);
             this.panel4.Controls.Add(this.lblFileName);
             resources.ApplyResources(this.panel4, "panel4");
             this.panel4.Name = "panel4";
@@ -156,11 +154,6 @@
             resources.ApplyResources(this.lblCurDownload, "lblCurDownload");
             this.lblCurDownload.Name = "lblCurDownload";
             // 
-            // lblVersion
-            // 
-            resources.ApplyResources(this.lblVersion, "lblVersion");
-            this.lblVersion.Name = "lblVersion";
-            // 
             // lblFileName
             // 
             resources.ApplyResources(this.lblFileName, "lblFileName");
@@ -178,6 +171,7 @@
             this.MaximizeBox = false;
             this.MinimizeBox = false;
             this.Name = "DownloadDiaglog";
+            this.ShowInTaskbar = false;
             this.Load += new System.EventHandler(this.DownloadDiaglog_Load);
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.panel1.ResumeLayout(false);
@@ -208,7 +202,6 @@
         private System.Windows.Forms.ProgressBar progressBarCurrent;
         private System.Windows.Forms.Label lblTotalDownload;
         private System.Windows.Forms.Label lblCurDownload;
-        private System.Windows.Forms.Label lblVersion;
         private System.Windows.Forms.Label lblFileName;
     }
 }

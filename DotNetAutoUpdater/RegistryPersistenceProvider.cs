@@ -29,7 +29,7 @@ namespace DotNetAutoUpdater
             RegistryLocation = registryLocation;
         }
 
-        /// <inheritdoc/>
+        /// <inheritdoc />
         public Version GetSkippedVersion()
         {
             try
@@ -52,7 +52,7 @@ namespace DotNetAutoUpdater
             return null;
         }
 
-        /// <inheritdoc/>
+        /// <inheritdoc />
         public DateTime? GetRemindLater()
         {
             using (RegistryKey updateKey = Registry.CurrentUser.OpenSubKey(RegistryLocation))
@@ -69,7 +69,7 @@ namespace DotNetAutoUpdater
             }
         }
 
-        /// <inheritdoc/>
+        /// <inheritdoc />
         public void SetSkippedVersion(Version version)
         {
             using (RegistryKey autoUpdaterKey = Registry.CurrentUser.CreateSubKey(RegistryLocation))
@@ -78,7 +78,7 @@ namespace DotNetAutoUpdater
             }
         }
 
-        /// <inheritdoc/>
+        /// <inheritdoc />
         public void SetRemindLater(DateTime? remindLaterAt)
         {
             using (RegistryKey autoUpdaterKey = Registry.CurrentUser.CreateSubKey(RegistryLocation))
