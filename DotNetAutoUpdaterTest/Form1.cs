@@ -1,5 +1,4 @@
-﻿using DotNetAutoUpdater;
-using System;
+﻿using System;
 using System.Reflection;
 using System.Windows.Forms;
 
@@ -19,8 +18,6 @@ namespace DotNetAutoUpdaterTest
 
         private void btnCheckUpdate_Click(object sender, EventArgs e)
         {
-            new AutoUpdate().Update("http://101.201.142.93:18080/DotNetAutoUpdaterTest/update.xml");
-
             var updaterPath = "NetEaseHelper.AutoUpdater.exe";
             if (System.IO.File.Exists(updaterPath))
             {
