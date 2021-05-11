@@ -41,5 +41,11 @@ UpdateMode
 #### 使用
 
 ```
-new AutoUpdate().Update("http://xxx.xxx.xxx/update.xml");
+var updaterPath = "AutoUpdater.exe";
+if (System.IO.File.Exists(updaterPath))
+{
+    string path = System.IO.Path.Combine(AppDomain.CurrentDomain.BaseDirectory, updaterPath);
+    var update = System.Diagnostics.Process.Start(path, $@"-u http://xxx/update.xml -p {System.Diagnostics.Process.GetCurrentProcess().Id} -a ""{System.Windows.Forms.Application.ExecutablePath}""");
+    update.WaitForExit();
+}
 ```
