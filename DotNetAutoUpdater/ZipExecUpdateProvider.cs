@@ -21,6 +21,7 @@ namespace DotNetAutoUpdater
                 return;
             }
 
+            // 检测压缩包并释放
             var zipFile = items.UpdateItems.Where(x => x.Path.ToLower().EndsWith(".zip")).ToList();
             var downloadPath = System.IO.Path.Combine(appUpdateArgs.TempFolderPath, appUpdateArgs.DownloadFolderName);
             foreach (var item in zipFile)

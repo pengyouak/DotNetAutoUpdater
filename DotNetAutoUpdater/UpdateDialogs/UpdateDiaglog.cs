@@ -1,6 +1,8 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
+using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
@@ -103,6 +105,34 @@ namespace DotNetAutoUpdater.UpdateDialogs
             catch { }
         }
 
+        private bool ExecUpdateItem(IEnumerable<UpdateItem> updateItems)
+        {
+            try
+            {
+                foreach (var item in updateItems)
+                {
+                    var updatePath = Path.Combine(_appUpdateInfoArgs.GetDownloadFolderFullPath(), item.Path);
+                    Process.Start(updatePath).WaitForExit();
+                    progressBarTotal.UpdateUI(() => progressBarTotal.Value += 1);
+                }
+                return true;
+            }
+            catch
+            {
+                return false;
+            }
+        }
+
+        private bool BeforeUpdate(IEnumerable<UpdateItem> updateItems)
+        {
+            return ExecUpdateItem(updateItems);
+        }
+
+        private bool AfterUpdate(IEnumerable<UpdateItem> updateItems)
+        {
+            return ExecUpdateItem(updateItems);
+        }
+
         private bool InstallUpdate()
         {
             var fileInfo = new FileInfo(_appUpdateInfoArgs.APPFullName);
@@ -111,7 +141,9 @@ namespace DotNetAutoUpdater.UpdateDialogs
 
             try
             {
-                foreach (var item in _updateOption.UpdateItems)
+                if (!BeforeUpdate(_updateOption.UpdateItems.Where(x => x.ExecBeforeUpdate))) return false;
+
+                foreach (var item in _updateOption.UpdateItems.Where(x => !x.ExecBeforeUpdate && !x.ExecAfterUpdate))
                 {
                     var appPath = Path.Combine(fileInfo.DirectoryName, item.Path);
                     var updatePath = Path.Combine(_appUpdateInfoArgs.GetDownloadFolderFullPath(), item.Path);
@@ -122,6 +154,9 @@ namespace DotNetAutoUpdater.UpdateDialogs
                     File.Copy(updatePath, appPath, true);
                     progressBarTotal.UpdateUI(() => progressBarTotal.Value += 1);
                 }
+
+                if (!AfterUpdate(_updateOption.UpdateItems.Where(x => x.ExecAfterUpdate))) return false;
+
                 return true;
             }
             catch (Exception ex)
